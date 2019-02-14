@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegComment } from "react-icons/fa";
+import "./List.css";
 
 export default function List({ items }) {
   return (
