@@ -1,5 +1,6 @@
 import React from "react";
 import { FaStackOverflow, FaHackerNews } from "react-icons/fa";
+import HackerNewsList from "./components/HackerNewsList";
 import StackOverflowList from "./components/StackOverflowList";
 import "./App.css";
 

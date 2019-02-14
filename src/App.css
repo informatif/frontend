@@ -37,3 +37,37 @@
 .nav__link:hover {
   color: var(--primary-color);
 }
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.list__item {
+  align-items: center;
+  display: flex;
+  height: 48px;
+}
+
+.item__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 8px;
+}
+
+.item__title {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.item__author {
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
+.item__points {
+  text-align: center;
+  width: 48px;
+}
