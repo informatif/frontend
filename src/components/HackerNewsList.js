@@ -19,7 +19,8 @@ export default class HackerNewsList extends Component {
         points,
         responseCount: comments_count,
         id,
-        author: user
+        author: user,
+        responseLink: `https://news.ycombinator.com/item?id=${id}`
       }))
     });
   }

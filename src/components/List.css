@@ -17,11 +17,6 @@
   padding: 0 8px;
 }
 
-.item__title {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
 .item__author {
   opacity: 0.8;
   font-size: 0.8rem;
@@ -30,4 +25,9 @@
 .item__points {
   text-align: center;
   width: 48px;
+}
+
+.item__link {
+  color: var(--primary-color);
+  text-decoration: none;
 }
