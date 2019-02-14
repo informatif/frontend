@@ -1,5 +1,5 @@
 .app {
-  --primary-color: "#1976d2";
+  --primary-color: #1976d2;
 }
 
 .title {
@@ -11,6 +11,10 @@
 .header {
   display: flex;
   padding: 8px 0;
+}
+
+.header__title {
+  color: var(--primary-color);
 }
 
 .nav {
