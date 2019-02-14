@@ -27,10 +27,13 @@
 }
 
 .nav__link {
-  color: inherit;
+  color: black;
+  font-size: 1.5rem;
+  padding: 0 8px;
   text-decoration: none;
+  transition: color 160ms ease-out;
 }
 
 .nav__link:hover {
-  text-decoration: underline;
+  color: var(--primary-color);
 }
