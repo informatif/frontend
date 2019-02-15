@@ -1,6 +1,13 @@
 import React from "react";
-import { BrowserRouter, NavLink } from "react-router-dom";
+import {
+  BrowserRouter,
+  NavLink,
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
 import { FaStackOverflow, FaHackerNews } from "react-icons/fa";
+import NoMatch from "./components/NoMatch";
 import Feed from "./components/Feed";
 import "./App.css";
 
@@ -15,7 +22,7 @@ const App = () => (
             <li>
               <NavLink
                 exact
-                to="/"
+                to="/hn"
                 className="nav__link"
                 activeClassName="nav__link--selected"
                 title="Hacker News"
@@ -25,6 +32,7 @@ const App = () => (
             </li>
             <li>
               <NavLink
+                exact
                 to="/so"
                 className="nav__link"
                 activeClassName="nav__link--selected"
@@ -36,7 +44,11 @@ const App = () => (
           </ul>
         </nav>
       </header>
-      <Feed />
+      <Switch>
+        <Redirect exact from="/" to="/hn" />
+        <Route exact path={["/hn", "/so"]} component={Feed} />
+        <Route component={NoMatch} />
+      </Switch>
     </div>
   </BrowserRouter>
 );

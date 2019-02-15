@@ -54,3 +54,14 @@
 .nav__link--selected {
   color: var(--primary-color);
 }
+
+.center {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.center--vertical {
+  flex-direction: column;
+}
