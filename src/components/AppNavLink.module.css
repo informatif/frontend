@@ -1,15 +1,15 @@
-.headerLink {
+.appNavLink {
   color: black;
   font-size: 1.5rem;
-  padding: 0 8px;
+  padding: 0 4px;
   text-decoration: none;
   transition: color 160ms ease-out;
 }
 
-.headerLink:hover {
+.appNavLink:hover {
   color: var(--primary-color);
 }
 
-.headerLinkSelected {
+.appNavLinkSelected {
   color: var(--primary-color);
 }

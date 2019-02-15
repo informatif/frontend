@@ -1,40 +1,20 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { FaStackOverflow, FaHackerNews, FaNewspaper } from "react-icons/fa";
 import NoMatch from "./components/NoMatch";
 import Feed from "./components/Feed";
 import Title from "./components/Title";
-import HeaderLink from "./components/HeaderLink";
-import { app, header, nav } from "./App.module.css";
+import Center from "./components/Center";
+import AppNav from "./components/AppNav";
+import Margin from "./components/Margin";
 
 const App = () => (
   <BrowserRouter>
-    <div className={app}>
-      <header className={header}>
+    <>
+      <Center>
         <Title colored>
           <h1>Informatif</h1>
         </Title>
-        <nav>
-          <ul className={nav}>
-            Sites:
-            <li>
-              <HeaderLink to="/hn" title="Hacker News">
-                <FaHackerNews />
-              </HeaderLink>
-            </li>
-            <li>
-              <HeaderLink to="/so" title="Stack Overflow">
-                <FaStackOverflow />
-              </HeaderLink>
-            </li>
-            <li>
-              <HeaderLink to="/global" title="Global News">
-                <FaNewspaper />
-              </HeaderLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      </Center>
       <Switch>
         <Redirect exact from="/" to="/hn" />
         <Route exact path="/hn" component={Feed} />
@@ -42,7 +22,9 @@ const App = () => (
         <Route exact path="/global" component={Feed} />
         <Route component={NoMatch} />
       </Switch>
-    </div>
+      <Margin margin="48px" />
+      <AppNav />
+    </>
   </BrowserRouter>
 );
 
