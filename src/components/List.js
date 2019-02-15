@@ -1,13 +1,16 @@
 import React from "react";
-import { FaRegComment, FaSyncAlt } from "react-icons/fa";
+import {
+  FaRegCommentAlt,
+  FaSyncAlt,
+  FaRegArrowAltCircleUp
+} from "react-icons/fa";
 import ErrorBoundary from "./ErrorBoundary";
 import {
   list,
-  list__item,
-  item__points,
-  item__content,
-  item__author,
-  item__link
+  listItem,
+  itemContent,
+  itemSubtitle,
+  itemLink
 } from "./List.module.css";
 import Center from "./Center";
 import Title from "./Title";
@@ -30,25 +33,33 @@ export default function List({ items, title, handleRefresh, handleLoadMore }) {
       <ErrorBoundary>
         <ul className={list}>
           {items.map(({ link, title, points, responseCount, id, author }) => (
-            <li className={list__item} key={id}>
-              {points !== undefined && (
-                <span className={item__points} title="Points">
-                  {points > 0 ? `+${points}` : points}
-                </span>
-              )}
-              <div className={item__content}>
-                <a href={link} className={item__link} title="Title">
+            <li className={listItem} key={id}>
+              <div className={itemContent}>
+                <a href={link} className={itemLink} title="Title">
                   {title}
                 </a>
-                <span className={item__author} title="Author">
-                  {author}
-                </span>
+                <div>
+                  <span title="Author" className={itemSubtitle}>
+                    {author}
+                  </span>
+                  {points !== undefined && (
+                    <>
+                      <span> • </span>
+                      <span className={itemSubtitle} title="Points">
+                        {points} <FaRegArrowAltCircleUp />
+                      </span>
+                    </>
+                  )}
+                  {responseCount !== undefined && (
+                    <>
+                      <span> • </span>
+                      <span className={itemSubtitle} title="Responses">
+                        {responseCount} <FaRegCommentAlt />
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
-              {responseCount !== undefined && (
-                <span title="Responses">
-                  {responseCount} <FaRegComment />
-                </span>
-              )}
             </li>
           ))}
         </ul>
