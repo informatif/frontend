@@ -14,17 +14,14 @@ export default class HackerNewsList extends Component {
       });
       const items = await res.json();
       this.setState({
-        items: items.map(
-          ({ url, title, points, comments_count, id, user }) => ({
-            link: url,
-            title,
-            points,
-            responseCount: comments_count,
-            id,
-            author: user,
-            responseLink: `https://news.ycombinator.com/item?id=${id}`
-          })
-        )
+        items: items.map(({ title, points, comments_count, id, user }) => ({
+          link: `https://news.ycombinator.com/item?id=${id}`,
+          title,
+          points,
+          responseCount: comments_count,
+          id,
+          author: user
+        }))
       });
     } catch (_) {
       // Do nothing
