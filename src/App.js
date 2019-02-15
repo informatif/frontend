@@ -6,7 +6,7 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import { FaStackOverflow, FaHackerNews } from "react-icons/fa";
+import { FaStackOverflow, FaHackerNews, FaNewspaper } from "react-icons/fa";
 import NoMatch from "./components/NoMatch";
 import Feed from "./components/Feed";
 import "./App.css";
@@ -41,6 +41,17 @@ const App = () => (
                 <FaStackOverflow />
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                exact
+                to="/global"
+                className="nav__link"
+                activeClassName="nav__link--selected"
+                title="Global News"
+              >
+                <FaNewspaper />
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </header>
@@ -48,6 +59,7 @@ const App = () => (
         <Redirect exact from="/" to="/hn" />
         <Route exact path="/hn" component={Feed} />
         <Route exact path="/so" component={Feed} />
+        <Route exact path="/global" component={Feed} />
         <Route component={NoMatch} />
       </Switch>
     </div>
