@@ -63,9 +63,12 @@ export default class GlobalNewsList extends Component {
   load = async page => {
     this.abortController = new AbortController();
     const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?apiKey=e1e3caafb22c41cea70dfe4fb67f2d9e&language=en&page=${page}`,
+      `https://newsapi.org/v2/top-headlines?language=en&page=${page}`,
       {
-        signal: this.abortController.signal
+        signal: this.abortController.signal,
+        headers: {
+          Authorization: "Bearer e1e3caafb22c41cea70dfe4fb67f2d9e"
+        }
       }
     );
     return (await res.json()).articles;
