@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  padding: 8px 0;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0 8px;
+}

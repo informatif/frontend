@@ -1,56 +1,36 @@
 import React from "react";
-import {
-  BrowserRouter,
-  NavLink,
-  Redirect,
-  Route,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { FaStackOverflow, FaHackerNews, FaNewspaper } from "react-icons/fa";
 import NoMatch from "./components/NoMatch";
 import Feed from "./components/Feed";
-import "./App.css";
+import Title from "./components/Title";
+import HeaderLink from "./components/HeaderLink";
+import { app, header, nav } from "./App.module.css";
 
 const App = () => (
   <BrowserRouter>
-    <div className="app">
-      <header className="header">
-        <h1 className="header__title title">Informatif</h1>
+    <div className={app}>
+      <header className={header}>
+        <Title colored>
+          <h1>Informatif</h1>
+        </Title>
         <nav>
-          <ul className="nav">
+          <ul className={nav}>
             Sites:
             <li>
-              <NavLink
-                exact
-                to="/hn"
-                className="nav__link"
-                activeClassName="nav__link--selected"
-                title="Hacker News"
-              >
+              <HeaderLink to="/hn" title="Hacker News">
                 <FaHackerNews />
-              </NavLink>
+              </HeaderLink>
             </li>
             <li>
-              <NavLink
-                exact
-                to="/so"
-                className="nav__link"
-                activeClassName="nav__link--selected"
-                title="Stack Overflow"
-              >
+              <HeaderLink to="/so" title="Stack Overflow">
                 <FaStackOverflow />
-              </NavLink>
+              </HeaderLink>
             </li>
             <li>
-              <NavLink
-                exact
-                to="/global"
-                className="nav__link"
-                activeClassName="nav__link--selected"
-                title="Global News"
-              >
+              <HeaderLink to="/global" title="Global News">
                 <FaNewspaper />
-              </NavLink>
+              </HeaderLink>
             </li>
           </ul>
         </nav>

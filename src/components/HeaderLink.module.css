@@ -1,0 +1,15 @@
+.headerLink {
+  color: black;
+  font-size: 1.5rem;
+  padding: 0 8px;
+  text-decoration: none;
+  transition: color 160ms ease-out;
+}
+
+.headerLink:hover {
+  color: var(--primary-color);
+}
+
+.headerLinkSelected {
+  color: var(--primary-color);
+}

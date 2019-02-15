@@ -1,0 +1,8 @@
+.title {
+  font-family: Nunito, sans-serif;
+  padding: 0 8px;
+}
+
+.titleColored {
+  color: var(--primary-color);
+}
