@@ -13,6 +13,19 @@
   padding: 8px 0;
 }
 
+.header__action {
+  border: 0;
+  font-size: 1rem;
+  height: 32px;
+  transition: color 160ms ease-out;
+  width: 32px;
+}
+
+.header__action:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
 .header__title {
   color: var(--primary-color);
 }
@@ -35,5 +48,9 @@
 }
 
 .nav__link:hover {
+  color: var(--primary-color);
+}
+
+.nav__link--selected {
   color: var(--primary-color);
 }

@@ -1,8 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, NavLink } from "react-router-dom";
 import { FaStackOverflow, FaHackerNews } from "react-icons/fa";
-import HackerNewsList from "./components/HackerNewsList";
-import StackOverflowList from "./components/StackOverflowList";
+import Feed from "./components/Feed";
 import "./App.css";
 
 const App = () => (
@@ -14,20 +13,30 @@ const App = () => (
           <ul className="nav">
             Sites:
             <li>
-              <Link to="/" className="nav__link" title="Hacker News">
+              <NavLink
+                exact
+                to="/"
+                className="nav__link"
+                activeClassName="nav__link--selected"
+                title="Hacker News"
+              >
                 <FaHackerNews />
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/so" className="nav__link" title="Stack Overflow">
+              <NavLink
+                to="/so"
+                className="nav__link"
+                activeClassName="nav__link--selected"
+                title="Stack Overflow"
+              >
                 <FaStackOverflow />
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
       </header>
-      <Route path="/so" component={StackOverflowList} />
-      <Route path="/" component={HackerNewsList} />
+      <Feed />
     </div>
   </BrowserRouter>
 );
