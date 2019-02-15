@@ -4,7 +4,7 @@ import { FaRegSadTear } from "react-icons/fa";
 
 export default function NoMatch() {
   return (
-    <div class="center center--vertical">
+    <div className="center center--vertical">
       <FaRegSadTear size="3rem" />
       <h2>Sorry, we couldn't find what you were looking for.</h2>
       <p>

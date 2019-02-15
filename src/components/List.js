@@ -3,7 +3,7 @@ import { FaRegComment, FaSyncAlt } from "react-icons/fa";
 import ErrorBoundary from "./ErrorBoundary";
 import "./List.css";
 
-export default function List({ items, title, handleRefresh }) {
+export default function List({ items, title, handleRefresh, handleLoadMore }) {
   return (
     <>
       <header className="header center">
@@ -37,6 +37,9 @@ export default function List({ items, title, handleRefresh }) {
             </li>
           ))}
         </ul>
+        <div className="center">
+          <button onClick={handleLoadMore}>Load more</button>
+        </div>
       </ErrorBoundary>
     </>
   );

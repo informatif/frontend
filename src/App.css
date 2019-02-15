@@ -65,3 +65,17 @@
 .center--vertical {
   flex-direction: column;
 }
+
+.spinner {
+  animation: spin infinite 2s linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

@@ -46,7 +46,8 @@ const App = () => (
       </header>
       <Switch>
         <Redirect exact from="/" to="/hn" />
-        <Route exact path={["/hn", "/so"]} component={Feed} />
+        <Route exact path="/hn" component={Feed} />
+        <Route exact path="/so" component={Feed} />
         <Route component={NoMatch} />
       </Switch>
     </div>
