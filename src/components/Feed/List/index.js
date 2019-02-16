@@ -4,7 +4,7 @@ import {
   FaSyncAlt,
   FaRegArrowAltCircleUp
 } from "react-icons/fa";
-import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "../../ErrorBoundary";
 import {
   list,
   listItem,
@@ -12,8 +12,8 @@ import {
   itemSubtitle,
   itemLink
 } from "./List.module.css";
-import Center from "./Center";
-import Title from "./Title";
+import Center from "../../Center";
+import Title from "../../Title";
 
 export default function List({ items, title, handleRefresh, handleLoadMore }) {
   return (

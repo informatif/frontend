@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import List from "./List";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default class HackerNewsList extends Component {
   state = {

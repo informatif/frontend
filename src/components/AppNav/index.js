@@ -1,6 +1,6 @@
 import React from "react";
 import { FaStackOverflow, FaHackerNews, FaNewspaper } from "react-icons/fa";
-import AppNavLink from "./AppNavLink";
+import AppNavLink from "../AppNavLink";
 import { appNav } from "./AppNav.module.css";
 
 export default function AppNav() {
