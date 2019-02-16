@@ -2,10 +2,9 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Title from "./components/Title";
 import Center from "./components/Center";
-import AppNav from "./components/AppNav";
+import Footer from "./components/Footer";
 import Margin from "./components/Margin";
 import Spinner from "./components/Spinner";
-import DarkModeToggle from "./components/DarkModeToggle";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
@@ -20,7 +19,6 @@ const App = () => (
       <Title colored>
         <h1>Informatif</h1>
       </Title>
-      <DarkModeToggle />
     </Center>
     <Suspense fallback={<Spinner />}>
       <Switch>
@@ -34,7 +32,7 @@ const App = () => (
       </Switch>
     </Suspense>
     <Margin margin="48px" />
-    <AppNav />
+    <Footer />
   </BrowserRouter>
 );
 

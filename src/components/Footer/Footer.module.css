@@ -1,4 +1,4 @@
-.appNav {
+.footer {
   background: var(--background-color);
   bottom: 0;
   box-shadow: 0 -1px 4px 1px rgba(0, 0, 0, 0.1);
@@ -7,6 +7,6 @@
   margin: 0;
   padding: 4px 0;
   position: fixed;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
 }

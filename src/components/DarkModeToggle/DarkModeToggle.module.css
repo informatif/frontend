@@ -5,6 +5,10 @@
   width: 0;
 }
 
+.darkModeToggleIcon {
+  font-size: 1.5rem;
+}
+
 .darkModeToggleIcon:hover {
   cursor: pointer;
 }
