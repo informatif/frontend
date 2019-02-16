@@ -3,7 +3,8 @@ import {
   FaStackOverflow,
   FaHackerNews,
   FaNewspaper,
-  FaReddit
+  FaReddit,
+  FaGithub
 } from "react-icons/fa";
 import AppNavLink from "../AppNavLink";
 import { appNav } from "./AppNav.module.css";
@@ -13,6 +14,9 @@ export default function AppNav() {
     <nav className={appNav}>
       <AppNavLink to="/hn" title="Hacker News">
         <FaHackerNews />
+      </AppNavLink>
+      <AppNavLink to="/gh" title="GitHub">
+        <FaGithub />
       </AppNavLink>
       <AppNavLink to="/so" title="Stack Overflow">
         <FaStackOverflow />
