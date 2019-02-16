@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import NoMatch from "./components/NoMatch";
 import Title from "./components/Title";
 import Center from "./components/Center";
 import AppNav from "./components/AppNav";
@@ -10,6 +9,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const StackOverflowFeed = lazy(() => import("./components/StackOverflowFeed"));
 const GlobalNewsFeed = lazy(() => import("./components/GlobalNewsFeed"));
+const NoMatch = lazy(() => import("./components/NoMatch"));
 
 const App = () => (
   <BrowserRouter>
