@@ -4,7 +4,7 @@ import Title from "./components/Title";
 import Center from "./components/Center";
 import AppNav from "./components/AppNav";
 import Margin from "./components/Margin";
-import LoadingSpinner from "./components/LoadingSpinner";
+import Spinner from "./components/Spinner";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
@@ -20,7 +20,7 @@ const App = () => (
         <h1>Informatif</h1>
       </Title>
     </Center>
-    <Suspense fallback={<LoadingSpinner />}>
+    <Suspense fallback={<Spinner />}>
       <Switch>
         <Redirect exact from="/" to="/hn" />
         <Route exact path="/hn" component={HackerNewsFeed} />

@@ -31,6 +31,7 @@ export function useApi(loadApi) {
   }
 
   async function loadMore() {
+    setLoading(true);
     const newPage = page + 1;
     let newItems;
     try {
@@ -49,6 +50,7 @@ export function useApi(loadApi) {
     }
     setPage(newPage);
     setItems(consolidatedItems);
+    setLoading(false);
   }
 
   async function load(page) {
