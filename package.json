@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^1.1.0-alpha.0",
     "source-map-explorer": "^1.7.0"
   }
 }
