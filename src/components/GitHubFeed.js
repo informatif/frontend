@@ -7,11 +7,12 @@ async function loadApi(page, signal) {
     signal
   });
   const items = await res.json();
-  return items.map(({ url, author, name, stars }) => ({
+  return items.map(({ url, author, name, stars, description }) => ({
     id: url,
     link: url,
-    author,
     title: name,
+    author,
+    description,
     points: stars
   }));
 }

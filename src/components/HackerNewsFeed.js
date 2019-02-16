@@ -8,12 +8,12 @@ async function loadApi(page, signal) {
   });
   const items = await res.json();
   return items.map(({ title, points, comments_count, id, user }) => ({
+    id,
     link: `https://news.ycombinator.com/item?id=${id}`,
     title,
+    author: user,
     points,
-    responseCount: comments_count,
-    id,
-    author: user
+    responseCount: comments_count
   }));
 }
 

@@ -14,11 +14,11 @@ async function loadApi(page, signal) {
   );
   const items = (await res.json()).articles;
   return items.map(({ title, comments_count, source, url }) => ({
+    id: `${source.name} - ${title}`,
     link: url,
     title,
-    responseCount: comments_count,
-    id: `${source.name} - ${title}`,
-    author: source.name
+    author: source.name,
+    responseCount: comments_count
   }));
 }
 

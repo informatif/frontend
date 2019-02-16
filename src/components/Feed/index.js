@@ -33,36 +33,46 @@ export default function Feed({ items, title, onRefresh, onLoadMore, loading }) {
       ) : (
         <ErrorBoundary>
           <ul className={list}>
-            {items.map(({ link, title, points, responseCount, id, author }) => (
-              <li className={listItem} key={id}>
-                <div className={itemContent}>
-                  <a href={link} className={itemLink} title="Title">
-                    {title}
-                  </a>
-                  <div>
-                    <span title="Author" className={itemSubtitle}>
-                      {author}
-                    </span>
-                    {points != null && (
-                      <>
-                        <span> • </span>
-                        <span className={itemSubtitle} title="Points">
-                          {points} <FaRegArrowAltCircleUp />
-                        </span>
-                      </>
-                    )}
-                    {responseCount != null && (
-                      <>
-                        <span> • </span>
-                        <span className={itemSubtitle} title="Responses">
-                          {responseCount} <FaRegCommentAlt />
-                        </span>
-                      </>
-                    )}
+            {items.map(
+              ({
+                link,
+                title,
+                points,
+                responseCount,
+                id,
+                author,
+                description
+              }) => (
+                <li className={listItem} key={id}>
+                  <div className={itemContent}>
+                    <a href={link} className={itemLink} title="Title">
+                      {title} {description && `— ${description}`}
+                    </a>
+                    <div>
+                      <span title="Author" className={itemSubtitle}>
+                        {author}
+                      </span>
+                      {points != null && (
+                        <>
+                          <span> • </span>
+                          <span className={itemSubtitle} title="Points">
+                            {points} <FaRegArrowAltCircleUp />
+                          </span>
+                        </>
+                      )}
+                      {responseCount != null && (
+                        <>
+                          <span> • </span>
+                          <span className={itemSubtitle} title="Responses">
+                            {responseCount} <FaRegCommentAlt />
+                          </span>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              )
+            )}
           </ul>
           {onLoadMore && (
             <Center>
