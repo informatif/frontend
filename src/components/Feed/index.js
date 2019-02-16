@@ -14,18 +14,19 @@ import {
 } from "./Feed.module.css";
 import Center from "../Center";
 import Title from "../Title";
+import Row from "../Row";
 
 export default function Feed({ items, title, onRefresh, onLoadMore }) {
   return (
     <>
-      <Center>
+      <Row>
         <Title>
           <h2>{title}</h2>
         </Title>
         <button onClick={onRefresh} className="header__action" title="Refresh">
           <FaSyncAlt />
         </button>
-      </Center>
+      </Row>
       <ErrorBoundary>
         <ul className={list}>
           {items.map(({ link, title, points, responseCount, id, author }) => (
