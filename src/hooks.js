@@ -19,7 +19,7 @@ export function useApi(loadApi) {
 
   async function refresh() {
     setLoading(true);
-    const newPage = page + 1;
+    const newPage = 1;
     try {
       const newItems = await load(newPage);
       setPage(newPage);
