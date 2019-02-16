@@ -42,7 +42,7 @@ export default function List({ items, title, handleRefresh, handleLoadMore }) {
                   <span title="Author" className={itemSubtitle}>
                     {author}
                   </span>
-                  {points !== undefined && (
+                  {points != null && (
                     <>
                       <span> • </span>
                       <span className={itemSubtitle} title="Points">
@@ -50,7 +50,7 @@ export default function List({ items, title, handleRefresh, handleLoadMore }) {
                       </span>
                     </>
                   )}
-                  {responseCount !== undefined && (
+                  {responseCount != null && (
                     <>
                       <span> • </span>
                       <span className={itemSubtitle} title="Responses">
