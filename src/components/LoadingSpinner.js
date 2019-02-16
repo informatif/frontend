@@ -1,6 +1,6 @@
 import React from "react";
 import Spinner from "./Spinner";
-import Center from "./presentation/Center";
+import Center from "./Center";
 
 export default function LoadingSpinner() {
   return (
