@@ -13,24 +13,22 @@ const NoMatch = lazy(() => import("./components/NoMatch"));
 
 const App = () => (
   <BrowserRouter>
-    <>
-      <Center>
-        <Title colored>
-          <h1>Informatif</h1>
-        </Title>
-      </Center>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Switch>
-          <Redirect exact from="/" to="/hn" />
-          <Route exact path="/hn" component={HackerNewsFeed} />
-          <Route exact path="/so" component={StackOverflowFeed} />
-          <Route exact path="/global" component={GlobalNewsFeed} />
-          <Route component={NoMatch} />
-        </Switch>
-      </Suspense>
-      <Margin margin="48px" />
-      <AppNav />
-    </>
+    <Center>
+      <Title colored>
+        <h1>Informatif</h1>
+      </Title>
+    </Center>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Switch>
+        <Redirect exact from="/" to="/hn" />
+        <Route exact path="/hn" component={HackerNewsFeed} />
+        <Route exact path="/so" component={StackOverflowFeed} />
+        <Route exact path="/global" component={GlobalNewsFeed} />
+        <Route component={NoMatch} />
+      </Switch>
+    </Suspense>
+    <Margin margin="48px" />
+    <AppNav />
   </BrowserRouter>
 );
 
