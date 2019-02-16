@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegSadTear } from "react-icons/fa";
 import Column from "./Column";
+import { useDocumentTitle } from "../hooks";
 
 export default function NoMatch() {
+  useDocumentTitle("Not Found");
+
   return (
     <Column crossAxisAlignment="center">
       <FaRegSadTear size="3rem" />
