@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { unstable_batchedUpdates } from "react-dom";
 
 export function useApi(loadApi) {
   let abortControllerRef = useRef(null);
@@ -23,9 +24,11 @@ export function useApi(loadApi) {
     const newPage = 1;
     try {
       const newItems = await load(newPage);
-      setPage(newPage);
-      setItems(newItems);
-      setLoading(false);
+      unstable_batchedUpdates(() => {
+        setPage(newPage);
+        setItems(newItems);
+        setLoading(false);
+      });
     } catch (_) {
       // The component was unmounted
     }
@@ -44,9 +47,11 @@ export function useApi(loadApi) {
           consolidatedItems.push(item);
         }
       }
-      setPage(newPage);
-      setItems(consolidatedItems);
-      setLoading(false);
+      unstable_batchedUpdates(() => {
+        setPage(newPage);
+        setItems(consolidatedItems);
+        setLoading(false);
+      });
     } catch (_) {
       // The component was unmounted
     }
