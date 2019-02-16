@@ -1,6 +1,8 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi } from "../hooks";
+import { useApi, useDocumentTitle } from "../hooks";
+
+const title = "Global News";
 
 async function loadApi(page, signal) {
   const res = await fetch(
@@ -23,11 +25,13 @@ async function loadApi(page, signal) {
 }
 
 export default function GlobalNewsFeed() {
+  useDocumentTitle(title);
+
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
   return (
     <Feed
-      title="Global News"
+      title={title}
       items={items}
       onRefresh={refresh}
       onLoadMore={loadMore}

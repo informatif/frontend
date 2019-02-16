@@ -1,6 +1,8 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi } from "../hooks";
+import { useApi, useDocumentTitle } from "../hooks";
+
+const title = "Hacker News";
 
 async function loadApi(page, signal) {
   const res = await fetch(`https://api.hnpwa.com/v0/news/${page}.json`, {
@@ -18,11 +20,13 @@ async function loadApi(page, signal) {
 }
 
 export default function HackerNewsFeed() {
+  useDocumentTitle(title);
+
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
   return (
     <Feed
-      title="Hacker News"
+      title={title}
       items={items}
       onRefresh={refresh}
       onLoadMore={loadMore}

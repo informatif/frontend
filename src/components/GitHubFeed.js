@@ -1,6 +1,8 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi } from "../hooks";
+import { useApi, useDocumentTitle } from "../hooks";
+
+const title = "GitHub";
 
 async function loadApi(page, signal) {
   const res = await fetch(`https://github-trending-api.now.sh/repositories`, {
@@ -18,8 +20,11 @@ async function loadApi(page, signal) {
 }
 
 export default function GitHubFeed() {
+  useDocumentTitle(title);
+
   const { loading, items, refresh } = useApi(loadApi);
+
   return (
-    <Feed title="GitHub" items={items} onRefresh={refresh} loading={loading} />
+    <Feed title={title} items={items} onRefresh={refresh} loading={loading} />
   );
 }

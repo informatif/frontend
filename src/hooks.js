@@ -63,3 +63,9 @@ export function useApi(loadApi) {
     loadMore
   };
 }
+
+export function useDocumentTitle(title) {
+  useEffect(() => {
+    document.title = `Informatif — ${title}`;
+  }, [title]);
+}
