@@ -1,7 +1,7 @@
 import React from "react";
-import List from "./List";
-import LoadingSpinner from "../LoadingSpinner";
-import { useApi } from "./hooks";
+import Feed from "./Feed";
+import LoadingSpinner from "./LoadingSpinner";
+import { useApi } from "../hooks";
 
 async function loadApi(page, abortController) {
   const res = await fetch(`https://api.hnpwa.com/v0/news/${page}.json`, {
@@ -26,7 +26,7 @@ export default function HackerNewsFeed() {
   }
 
   return (
-    <List
+    <Feed
       title="Hacker News"
       items={items}
       onRefresh={refresh}

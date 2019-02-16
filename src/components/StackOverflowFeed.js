@@ -1,7 +1,7 @@
 import React from "react";
-import List from "./List";
-import LoadingSpinner from "../LoadingSpinner";
-import { useApi } from "./hooks";
+import Feed from "./Feed";
+import LoadingSpinner from "./LoadingSpinner";
+import { useApi } from "../hooks";
 
 async function loadApi(page, abortController) {
   const res = await fetch(
@@ -31,7 +31,7 @@ export default function StackOverflowFeed() {
   }
 
   return (
-    <List
+    <Feed
       title="Stack Overflow"
       items={items}
       onRefresh={refresh}
