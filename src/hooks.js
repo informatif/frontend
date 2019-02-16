@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function useApi(loadApi) {
-  let abortController = null;
+  let abortControllerRef = useRef(null);
 
   useEffect(() => {
     refresh();
 
     return () => {
-      if (abortController) {
-        abortController.abort();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
       }
     };
-  }, []);
+  }, [abortControllerRef]);
 
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
@@ -33,29 +34,30 @@ export function useApi(loadApi) {
   async function loadMore() {
     setLoading(true);
     const newPage = page + 1;
-    let newItems;
     try {
-      newItems = await load(newPage);
+      const newItems = await load(newPage);
+      // The paging API returns duplicates between pages,
+      // so we have to de-duplicate the Arrays.
+      const consolidatedItems = items;
+      for (let item of newItems) {
+        if (!items.find(el => el.id === item.id)) {
+          consolidatedItems.push(item);
+        }
+      }
+      setPage(newPage);
+      setItems(consolidatedItems);
+      setLoading(false);
     } catch (_) {
       // The component was unmounted
-      return;
     }
-    // The paging API returns duplicates between pages,
-    // so we have to de-duplicate the Arrays.
-    const consolidatedItems = items;
-    for (let item of newItems) {
-      if (!items.find(el => el.id === item.id)) {
-        consolidatedItems.push(item);
-      }
-    }
-    setPage(newPage);
-    setItems(consolidatedItems);
-    setLoading(false);
   }
 
   async function load(page) {
-    abortController = new AbortController();
-    return await loadApi(page, abortController.signal);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+    return await loadApi(page, abortControllerRef.current.signal);
   }
 
   return {
