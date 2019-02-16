@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaRegSadTear } from "react-icons/fa";
-import Center from "./Center";
+import Column from "./Column";
 
 export default class ErrorBoundary extends Component {
   state = {
@@ -16,10 +16,10 @@ export default class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Center vertical>
+        <Column crossAxisAlignment="center">
           <FaRegSadTear size="3rem" />
           <h2>Sorry, we couldn't load that for you.</h2>
-        </Center>
+        </Column>
       );
     }
     return this.props.children;
