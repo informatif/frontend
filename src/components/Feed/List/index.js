@@ -15,18 +15,14 @@ import {
 import Center from "../../Center";
 import Title from "../../Title";
 
-export default function List({ items, title, handleRefresh, handleLoadMore }) {
+export default function List({ items, title, onRefresh, onLoadMore }) {
   return (
     <>
       <Center>
         <Title>
           <h2>{title}</h2>
         </Title>
-        <button
-          onClick={handleRefresh}
-          className="header__action"
-          title="Refresh"
-        >
+        <button onClick={onRefresh} className="header__action" title="Refresh">
           <FaSyncAlt />
         </button>
       </Center>
@@ -64,7 +60,7 @@ export default function List({ items, title, handleRefresh, handleLoadMore }) {
           ))}
         </ul>
         <Center>
-          <button onClick={handleLoadMore}>Load more</button>
+          <button onClick={onLoadMore}>Load more</button>
         </Center>
       </ErrorBoundary>
     </>
