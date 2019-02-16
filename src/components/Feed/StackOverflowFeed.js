@@ -23,7 +23,7 @@ async function loadApi(page, abortController) {
   );
 }
 
-export default function StackOverflowList() {
+export default function StackOverflowFeed() {
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
   if (loading) {

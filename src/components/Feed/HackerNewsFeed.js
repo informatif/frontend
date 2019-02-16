@@ -18,7 +18,7 @@ async function loadApi(page, abortController) {
   }));
 }
 
-export default function HackerNewsList() {
+export default function HackerNewsFeed() {
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
   if (loading) {

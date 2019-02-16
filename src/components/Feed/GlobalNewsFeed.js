@@ -23,7 +23,7 @@ async function loadApi(page, abortController) {
   }));
 }
 
-export default function GlobalNewsList() {
+export default function GlobalNewsFeed() {
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
   if (loading) {

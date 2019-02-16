@@ -1,15 +1,15 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import HackerNewsList from "./HackerNewsList";
-import StackOverflowList from "./StackOverflowList";
-import GlobalNewsList from "./GlobalNewsList";
+import HackerNewsFeed from "./HackerNewsFeed";
+import StackOverflowFeed from "./StackOverflowFeed";
+import GlobalNewsFeed from "./GlobalNewsFeed";
 
 export default function Feed() {
   return (
     <>
-      <Route exact path="/hn" component={HackerNewsList} />
-      <Route exact path="/so" component={StackOverflowList} />
-      <Route exact path="/global" component={GlobalNewsList} />
+      <Route exact path="/hn" component={HackerNewsFeed} />
+      <Route exact path="/so" component={StackOverflowFeed} />
+      <Route exact path="/global" component={GlobalNewsFeed} />
     </>
   );
 }
