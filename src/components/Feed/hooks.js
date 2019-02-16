@@ -13,7 +13,7 @@ export function useApi(loadApi) {
     };
   }, []);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
 
