@@ -53,7 +53,7 @@ export function useApi(loadApi) {
 
   async function load(page) {
     abortController = new AbortController();
-    return await loadApi(page, abortController);
+    return await loadApi(page, abortController.signal);
   }
 
   return {

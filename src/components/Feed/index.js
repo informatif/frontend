@@ -60,9 +60,11 @@ export default function Feed({ items, title, onRefresh, onLoadMore }) {
             </li>
           ))}
         </ul>
-        <Center>
-          <button onClick={onLoadMore}>Load more</button>
-        </Center>
+        {onLoadMore && (
+          <Center>
+            <button onClick={onLoadMore}>Load more</button>
+          </Center>
+        )}
       </ErrorBoundary>
     </>
   );

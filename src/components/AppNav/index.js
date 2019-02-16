@@ -1,5 +1,10 @@
 import React from "react";
-import { FaStackOverflow, FaHackerNews, FaNewspaper } from "react-icons/fa";
+import {
+  FaStackOverflow,
+  FaHackerNews,
+  FaNewspaper,
+  FaReddit
+} from "react-icons/fa";
 import AppNavLink from "../AppNavLink";
 import { appNav } from "./AppNav.module.css";
 
@@ -11,6 +16,9 @@ export default function AppNav() {
       </AppNavLink>
       <AppNavLink to="/so" title="Stack Overflow">
         <FaStackOverflow />
+      </AppNavLink>
+      <AppNavLink to="/reddit" title="Reddit">
+        <FaReddit />
       </AppNavLink>
       <AppNavLink to="/global" title="Global News">
         <FaNewspaper />

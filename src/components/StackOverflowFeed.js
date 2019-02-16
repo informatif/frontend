@@ -3,11 +3,11 @@ import Feed from "./Feed";
 import LoadingSpinner from "./LoadingSpinner";
 import { useApi } from "../hooks";
 
-async function loadApi(page, abortController) {
+async function loadApi(page, signal) {
   const res = await fetch(
     `https://api.stackexchange.com/2.2/questions?page=${page}&order=desc&sort=hot&site=stackoverflow`,
     {
-      signal: abortController.signal
+      signal
     }
   );
   const items = (await res.json()).items;

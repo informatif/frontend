@@ -8,6 +8,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const StackOverflowFeed = lazy(() => import("./components/StackOverflowFeed"));
+const RedditFeed = lazy(() => import("./components/RedditFeed"));
 const GlobalNewsFeed = lazy(() => import("./components/GlobalNewsFeed"));
 const NoMatch = lazy(() => import("./components/NoMatch"));
 
@@ -23,6 +24,7 @@ const App = () => (
         <Redirect exact from="/" to="/hn" />
         <Route exact path="/hn" component={HackerNewsFeed} />
         <Route exact path="/so" component={StackOverflowFeed} />
+        <Route exact path="/reddit" component={RedditFeed} />
         <Route exact path="/global" component={GlobalNewsFeed} />
         <Route component={NoMatch} />
       </Switch>

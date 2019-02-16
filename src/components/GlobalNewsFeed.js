@@ -3,11 +3,11 @@ import Feed from "./Feed";
 import LoadingSpinner from "./LoadingSpinner";
 import { useApi } from "../hooks";
 
-async function loadApi(page, abortController) {
+async function loadApi(page, signal) {
   const res = await fetch(
     `https://newsapi.org/v2/top-headlines?language=en&page=${page}`,
     {
-      signal: abortController.signal,
+      signal,
       headers: {
         Authorization: "Bearer e1e3caafb22c41cea70dfe4fb67f2d9e"
       }
