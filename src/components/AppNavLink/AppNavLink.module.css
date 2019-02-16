@@ -1,5 +1,5 @@
 .appNavLink {
-  color: black;
+  color: var(--text-color);
   font-size: 1.5rem;
   padding: 0 4px;
   text-decoration: none;

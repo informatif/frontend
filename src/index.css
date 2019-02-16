@@ -7,7 +7,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 200ms ease-out;
+}
+
+.light-mode {
+  --background-color: #fefefe;
   --primary-color: #1976d2;
+  --text-color: #222;
+}
+
+.dark-mode {
+  --background-color: #222;
+  --primary-color: #63a4ff;
+  --text-color: #ddd;
 }
 
 code {

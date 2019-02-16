@@ -5,6 +5,7 @@ import Center from "./components/Center";
 import AppNav from "./components/AppNav";
 import Margin from "./components/Margin";
 import Spinner from "./components/Spinner";
+import DarkModeToggle from "./components/DarkModeToggle";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
@@ -19,6 +20,7 @@ const App = () => (
       <Title colored>
         <h1>Informatif</h1>
       </Title>
+      <DarkModeToggle />
     </Center>
     <Suspense fallback={<Spinner />}>
       <Switch>
