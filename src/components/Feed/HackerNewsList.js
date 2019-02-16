@@ -1,56 +1,67 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import List from "./List";
 import LoadingSpinner from "../LoadingSpinner";
 
-export default class HackerNewsList extends Component {
-  state = {
-    items: [],
-    currentPage: 1,
-    loading: false
-  };
+export default function HackerNewsList() {
+  let abortController = null;
 
-  handleRefresh = async () => {
-    this.setState({
-      loading: true
+  useEffect(() => {
+    handleRefresh();
+
+    return () => {
+      if (abortController) {
+        abortController.abort();
+      }
+    };
+  }, []);
+
+  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+
+  async function handleRefresh() {
+    setLoading(true);
+    const newPage = page + 1;
+    try {
+      const newItems = formatApiItems(await load(newPage));
+      setPage(newPage);
+      setItems(newItems);
+      setLoading(false);
+    } catch (_) {
+      // The component was unmounted
+    }
+  }
+
+  async function handleLoadMore() {
+    const newPage = page + 1;
+    let newItems;
+    try {
+      newItems = formatApiItems(await load(newPage));
+    } catch (_) {
+      // The component was unmounted
+      return;
+    }
+    // The paging API returns duplicates between pages,
+    // so we have to de-duplicate the Arrays.
+    const consolidatedItems = items;
+    for (let item of newItems) {
+      if (!items.find(el => el.id === item.id)) {
+        consolidatedItems.push(item);
+      }
+    }
+    setPage(newPage);
+    setItems(consolidatedItems);
+  }
+
+  async function load(page) {
+    abortController = new AbortController();
+    const res = await fetch(`https://api.hnpwa.com/v0/news/${page}.json`, {
+      signal: abortController.signal
     });
+    return await res.json();
+  }
 
-    const newCurrentPage = 1;
-    try {
-      const newItems = await this.load(newCurrentPage);
-      this.setState({
-        loading: false,
-        currentPage: newCurrentPage,
-        items: this.formatApiItems(newItems)
-      });
-    } catch (_) {
-      // The component was unmounted. Do nothing.
-    }
-  };
-
-  handleLoadMore = async () => {
-    const newCurrentPage = this.state.currentPage + 1;
-    try {
-      const newItems = this.formatApiItems(await this.load(newCurrentPage));
-      this.setState(({ items }) => {
-        // The HN paging API returns duplicates between pages,
-        // so we have to de-duplicate the Arrays.
-        let consolidatedItems = items;
-        for (let item of newItems) {
-          if (!items.find(el => el.id === item.id)) {
-            consolidatedItems.push(item);
-          }
-        }
-        return {
-          currentPage: newCurrentPage,
-          items: consolidatedItems
-        };
-      });
-    } catch (_) {
-      // The component was unmounted. Do nothing.
-    }
-  };
-
-  formatApiItems = items => {
+  function formatApiItems(items = []) {
     return items.map(({ title, points, comments_count, id, user }) => ({
       link: `https://news.ycombinator.com/item?id=${id}`,
       title,
@@ -59,36 +70,18 @@ export default class HackerNewsList extends Component {
       id,
       author: user
     }));
-  };
-
-  load = async page => {
-    this.abortController = new AbortController();
-    const res = await fetch(`https://api.hnpwa.com/v0/news/${page}.json`, {
-      signal: this.abortController.signal
-    });
-    return await res.json();
-  };
-
-  componentDidMount() {
-    this.handleRefresh();
   }
 
-  componentWillUnmount() {
-    this.abortController.abort();
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
-  render() {
-    if (this.state.loading) {
-      return <LoadingSpinner />;
-    }
-
-    return (
-      <List
-        items={this.state.items}
-        title="Hacker News"
-        handleRefresh={this.handleRefresh}
-        handleLoadMore={this.handleLoadMore}
-      />
-    );
-  }
+  return (
+    <List
+      title="Hacker News"
+      items={items}
+      handleRefresh={handleRefresh}
+      handleLoadMore={handleLoadMore}
+    />
+  );
 }
