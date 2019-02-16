@@ -15,8 +15,9 @@ import {
 import Center from "../Center";
 import Title from "../Title";
 import Row from "../Row";
+import LoadingSpinner from "../LoadingSpinner";
 
-export default function Feed({ items, title, onRefresh, onLoadMore }) {
+export default function Feed({ items, title, onRefresh, onLoadMore, loading }) {
   return (
     <>
       <Row>
@@ -27,45 +28,49 @@ export default function Feed({ items, title, onRefresh, onLoadMore }) {
           <FaSyncAlt />
         </button>
       </Row>
-      <ErrorBoundary>
-        <ul className={list}>
-          {items.map(({ link, title, points, responseCount, id, author }) => (
-            <li className={listItem} key={id}>
-              <div className={itemContent}>
-                <a href={link} className={itemLink} title="Title">
-                  {title}
-                </a>
-                <div>
-                  <span title="Author" className={itemSubtitle}>
-                    {author}
-                  </span>
-                  {points != null && (
-                    <>
-                      <span> • </span>
-                      <span className={itemSubtitle} title="Points">
-                        {points} <FaRegArrowAltCircleUp />
-                      </span>
-                    </>
-                  )}
-                  {responseCount != null && (
-                    <>
-                      <span> • </span>
-                      <span className={itemSubtitle} title="Responses">
-                        {responseCount} <FaRegCommentAlt />
-                      </span>
-                    </>
-                  )}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <ErrorBoundary>
+          <ul className={list}>
+            {items.map(({ link, title, points, responseCount, id, author }) => (
+              <li className={listItem} key={id}>
+                <div className={itemContent}>
+                  <a href={link} className={itemLink} title="Title">
+                    {title}
+                  </a>
+                  <div>
+                    <span title="Author" className={itemSubtitle}>
+                      {author}
+                    </span>
+                    {points != null && (
+                      <>
+                        <span> • </span>
+                        <span className={itemSubtitle} title="Points">
+                          {points} <FaRegArrowAltCircleUp />
+                        </span>
+                      </>
+                    )}
+                    {responseCount != null && (
+                      <>
+                        <span> • </span>
+                        <span className={itemSubtitle} title="Responses">
+                          {responseCount} <FaRegCommentAlt />
+                        </span>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        {onLoadMore && (
-          <Center>
-            <button onClick={onLoadMore}>Load more</button>
-          </Center>
-        )}
-      </ErrorBoundary>
+              </li>
+            ))}
+          </ul>
+          {onLoadMore && (
+            <Center>
+              <button onClick={onLoadMore}>Load more</button>
+            </Center>
+          )}
+        </ErrorBoundary>
+      )}
     </>
   );
 }

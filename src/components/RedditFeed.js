@@ -1,7 +1,6 @@
 import React from "react";
 import Parser from "rss-parser";
 import Feed from "./Feed";
-import LoadingSpinner from "./LoadingSpinner";
 import { useApi } from "../hooks";
 
 const parser = new Parser();
@@ -25,9 +24,7 @@ async function loadApi(_, signal) {
 export default function RedditFeed() {
   const { loading, items, refresh } = useApi(loadApi);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  return <Feed title="Reddit" items={items} onRefresh={refresh} />;
+  return (
+    <Feed title="Reddit" items={items} onRefresh={refresh} loading={loading} />
+  );
 }

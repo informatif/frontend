@@ -1,6 +1,5 @@
 import React from "react";
 import Feed from "./Feed";
-import LoadingSpinner from "./LoadingSpinner";
 import { useApi } from "../hooks";
 
 async function loadApi(page, signal) {
@@ -21,16 +20,13 @@ async function loadApi(page, signal) {
 export default function HackerNewsFeed() {
   const { loading, items, refresh, loadMore } = useApi(loadApi);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <Feed
       title="Hacker News"
       items={items}
       onRefresh={refresh}
       onLoadMore={loadMore}
+      loading={loading}
     />
   );
 }
