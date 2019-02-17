@@ -5,6 +5,7 @@ import Center from "./components/Center";
 import Footer from "./components/Footer";
 import Margin from "./components/Margin";
 import Spinner from "./components/Spinner";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
@@ -27,15 +28,17 @@ const App = () => (
         </Center>
       }
     >
-      <Switch>
-        <Redirect exact from="/" to="/hn" />
-        <Route exact path="/hn" component={HackerNewsFeed} />
-        <Route exact path="/gh" component={GitHubFeed} />
-        <Route exact path="/so" component={StackOverflowFeed} />
-        <Route exact path="/reddit" component={RedditFeed} />
-        <Route exact path="/global" component={GlobalNewsFeed} />
-        <Route component={NoMatch} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          <Redirect exact from="/" to="/hn" />
+          <Route exact path="/hn" component={HackerNewsFeed} />
+          <Route exact path="/gh" component={GitHubFeed} />
+          <Route exact path="/so" component={StackOverflowFeed} />
+          <Route exact path="/reddit" component={RedditFeed} />
+          <Route exact path="/global" component={GlobalNewsFeed} />
+          <Route component={NoMatch} />
+        </Switch>
+      </ErrorBoundary>
     </Suspense>
     <Margin margin="48px" />
     <Footer />

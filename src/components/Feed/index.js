@@ -4,7 +4,6 @@ import {
   FaSyncAlt,
   FaRegArrowAltCircleUp
 } from "react-icons/fa";
-import ErrorBoundary from "../ErrorBoundary";
 import {
   list,
   listItem,
@@ -38,56 +37,46 @@ export default function Feed({ action, items, title, onRefresh, onLoadMore }) {
           </button>
         )}
       </Row>
-      <ErrorBoundary>
-        <ul className={list}>
-          {items.map(
-            ({
-              link,
-              title,
-              points,
-              responseCount,
-              id,
-              author,
-              description
-            }) => (
-              <li className={listItem} key={id}>
-                <div className={itemContent}>
-                  <a href={link} className={itemLink} title="Title">
-                    {title} {description && `— ${description}`}
-                  </a>
-                  <div>
-                    <span title="Author" className={itemSubtitle}>
-                      {author}
-                    </span>
-                    {points != null && (
-                      <>
-                        <span> • </span>
-                        <span className={itemSubtitle} title="Points">
-                          {points} <FaRegArrowAltCircleUp />
-                        </span>
-                      </>
-                    )}
-                    {responseCount != null && (
-                      <>
-                        <span> • </span>
-                        <span className={itemSubtitle} title="Responses">
-                          {responseCount} <FaRegCommentAlt />
-                        </span>
-                      </>
-                    )}
-                  </div>
+      <ul className={list}>
+        {items.map(
+          ({ link, title, points, responseCount, id, author, description }) => (
+            <li className={listItem} key={id}>
+              <div className={itemContent}>
+                <a href={link} className={itemLink} title="Title">
+                  {title} {description && `— ${description}`}
+                </a>
+                <div>
+                  <span title="Author" className={itemSubtitle}>
+                    {author}
+                  </span>
+                  {points != null && (
+                    <>
+                      <span> • </span>
+                      <span className={itemSubtitle} title="Points">
+                        {points} <FaRegArrowAltCircleUp />
+                      </span>
+                    </>
+                  )}
+                  {responseCount != null && (
+                    <>
+                      <span> • </span>
+                      <span className={itemSubtitle} title="Responses">
+                        {responseCount} <FaRegCommentAlt />
+                      </span>
+                    </>
+                  )}
                 </div>
-              </li>
-            )
-          )}
-        </ul>
-        <Center>
-          {action === API_ACTIONS.loading && <Spinner />}
-          {onLoadMore && action === API_ACTIONS.idle && (
-            <button onClick={onLoadMore}>Load more</button>
-          )}
-        </Center>
-      </ErrorBoundary>
+              </div>
+            </li>
+          )
+        )}
+      </ul>
+      <Center>
+        {action === API_ACTIONS.loading && <Spinner />}
+        {onLoadMore && action === API_ACTIONS.idle && (
+          <button onClick={onLoadMore}>Load more</button>
+        )}
+      </Center>
     </>
   );
 }
