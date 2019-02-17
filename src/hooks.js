@@ -25,8 +25,8 @@ export function useApi(loadApi) {
     try {
       const newItems = await load(newPage);
       unstable_batchedUpdates(() => {
-        setPage(newPage);
         setItems(newItems);
+        setPage(newPage);
         setLoading(false);
       });
     } catch (_) {
@@ -39,17 +39,18 @@ export function useApi(loadApi) {
     const newPage = page + 1;
     try {
       const newItems = await load(newPage);
-      // The paging API returns duplicates between pages,
-      // so we have to de-duplicate the Arrays.
-      const consolidatedItems = items;
-      for (let item of newItems) {
-        if (!items.find(el => el.id === item.id)) {
-          consolidatedItems.push(item);
-        }
-      }
       unstable_batchedUpdates(() => {
+        setItems(oldItems => {
+          // De-duplicate the arrays
+          const consolidatedItems = oldItems;
+          for (let item of newItems) {
+            if (!oldItems.find(el => el.id === item.id)) {
+              consolidatedItems.push(item);
+            }
+          }
+          return consolidatedItems;
+        });
         setPage(newPage);
-        setItems(consolidatedItems);
         setLoading(false);
       });
     } catch (_) {
