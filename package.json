@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-icons": "^3.4.0",
-    "react-router-dom": "^4.4.0-beta.6",
+    "react": "16.8.2",
+    "react-dom": "16.8.2",
+    "react-icons": "3.4.0",
+    "react-router-dom": "4.4.0-beta.6",
     "react-scripts": "2.1.5",
-    "use-dark-mode": "^2.3.0"
+    "use-dark-mode": "2.3.0"
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
@@ -27,7 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^1.1.0-alpha.0",
-    "source-map-explorer": "^1.7.0"
+    "eslint-plugin-react-hooks": "1.1.0-alpha.0",
+    "source-map-explorer": "1.7.0"
   }
 }
