@@ -4,7 +4,7 @@ import { useApi } from "../hooks/api";
 
 const title = "GitHub";
 
-async function loadApi(page, signal) {
+async function loadApi(_, signal) {
   const res = await fetch(`https://github-trending-api.now.sh/repositories`, {
     signal
   });
