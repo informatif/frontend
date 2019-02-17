@@ -2,6 +2,8 @@
 
 Glanceable headlines for the media sources you care about.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/254034f9-51be-4e82-b9e8-b4a33001f9e0/deploy-status)](https://app.netlify.com/sites/informatif/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
