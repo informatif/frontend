@@ -81,12 +81,12 @@ export default function Feed({ action, items, title, onRefresh, onLoadMore }) {
             )
           )}
         </ul>
-        {action === API_ACTIONS.loading && <Spinner />}
-        {onLoadMore && action === API_ACTIONS.idle && (
-          <Center>
+        <Center>
+          {action === API_ACTIONS.loading && <Spinner />}
+          {onLoadMore && action === API_ACTIONS.idle && (
             <button onClick={onLoadMore}>Load more</button>
-          </Center>
-        )}
+          )}
+        </Center>
       </ErrorBoundary>
     </>
   );

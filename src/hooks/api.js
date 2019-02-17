@@ -29,8 +29,11 @@ export function useApi(loadApi) {
         setPage(newPage);
         setAction(API_ACTIONS.idle);
       });
-    } catch (_) {
-      // The component was unmounted
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        setAction(API_ACTIONS.idle);
+        console.error(err);
+      }
     }
   }
 
@@ -53,8 +56,11 @@ export function useApi(loadApi) {
         setPage(newPage);
         setAction(API_ACTIONS.idle);
       });
-    } catch (_) {
-      // The component was unmounted
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        setAction(API_ACTIONS.idle);
+        console.error(err);
+      }
     }
   }
 
