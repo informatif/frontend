@@ -9,23 +9,12 @@ import {
 import AppNavLink from "../AppNavLink";
 import { footer } from "./Footer.module.css";
 import DarkModeToggle from "../DarkModeToggle";
-import Padding from "../Padding";
 
 export default function Footer() {
   return (
     <footer className={footer}>
-      <Padding
-        padding={{
-          left: "8px"
-        }}
-      >
-        <DarkModeToggle />
-      </Padding>
-      <Padding
-        padding={{
-          right: "8px"
-        }}
-      >
+      <DarkModeToggle />
+      <div>
         <AppNavLink to="/hn" title="Hacker News">
           <FaHackerNews />
         </AppNavLink>
@@ -41,7 +30,7 @@ export default function Footer() {
         <AppNavLink to="/global" title="Global News">
           <FaNewspaper />
         </AppNavLink>
-      </Padding>
+      </div>
     </footer>
   );
 }
