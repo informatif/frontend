@@ -1,6 +1,6 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi, useDocumentTitle } from "../hooks";
+import { useApi } from "../hooks/api";
 
 const title = "Stack Overflow";
 
@@ -25,18 +25,15 @@ async function loadApi(page, signal) {
 }
 
 export default function StackOverflowFeed() {
-  useDocumentTitle(title);
-
-  const { loading, items, refresh, refreshing, loadMore } = useApi(loadApi);
+  const { action, items, refresh, loadMore } = useApi(loadApi);
 
   return (
     <Feed
       title={title}
+      action={action}
       items={items}
       onRefresh={refresh}
-      refreshing={refreshing}
       onLoadMore={loadMore}
-      loading={loading}
     />
   );
 }

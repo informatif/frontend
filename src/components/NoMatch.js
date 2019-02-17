@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegSadTear } from "react-icons/fa";
 import Column from "./Column";
-import { useDocumentTitle } from "../hooks";
+import { useDocumentTitle } from "../hooks/document";
 
 export default function NoMatch() {
   useDocumentTitle("Not Found");

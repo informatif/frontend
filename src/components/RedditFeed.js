@@ -1,7 +1,7 @@
 import React from "react";
 import Parser from "rss-parser";
 import Feed from "./Feed";
-import { useApi, useDocumentTitle } from "../hooks";
+import { useApi } from "../hooks/api";
 
 const title = "Reddit";
 
@@ -24,16 +24,9 @@ async function loadApi(_, signal) {
 }
 
 export default function RedditFeed() {
-  useDocumentTitle(title);
-
-  const { items, refresh, refreshing } = useApi(loadApi);
+  const { action, items, refresh } = useApi(loadApi);
 
   return (
-    <Feed
-      title={title}
-      items={items}
-      onRefresh={refresh}
-      refreshing={refreshing}
-    />
+    <Feed title={title} action={action} items={items} onRefresh={refresh} />
   );
 }

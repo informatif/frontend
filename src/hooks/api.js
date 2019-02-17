@@ -15,20 +15,19 @@ export function useApi(loadApi) {
     };
   }, [abortControllerRef]);
 
-  const [refreshing, setRefreshing] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [action, setAction] = useState(API_ACTIONS.refreshing);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
 
   async function refresh() {
-    setRefreshing(true);
+    setAction(API_ACTIONS.refreshing);
     const newPage = 1;
     try {
       const newItems = await load(newPage);
       unstable_batchedUpdates(() => {
         setItems(newItems);
         setPage(newPage);
-        setRefreshing(false);
+        setAction(API_ACTIONS.idle);
       });
     } catch (_) {
       // The component was unmounted
@@ -36,7 +35,7 @@ export function useApi(loadApi) {
   }
 
   async function loadMore() {
-    setLoading(true);
+    setAction(API_ACTIONS.loading);
     const newPage = page + 1;
     try {
       const newItems = await load(newPage);
@@ -52,7 +51,7 @@ export function useApi(loadApi) {
           return consolidatedItems;
         });
         setPage(newPage);
-        setLoading(false);
+        setAction(API_ACTIONS.idle);
       });
     } catch (_) {
       // The component was unmounted
@@ -68,16 +67,15 @@ export function useApi(loadApi) {
   }
 
   return {
-    loading,
     items,
+    action,
     refresh,
-    refreshing,
     loadMore
   };
 }
 
-export function useDocumentTitle(title) {
-  useEffect(() => {
-    document.title = `Informatif — ${title}`;
-  }, [title]);
-}
+export const API_ACTIONS = {
+  refreshing: "refreshing",
+  loading: "loading",
+  idle: "idle"
+};

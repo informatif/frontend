@@ -16,26 +16,17 @@ import Center from "../Center";
 import Title from "../Title";
 import Row from "../Row";
 import Spinner from "../Spinner";
+import { API_ACTIONS } from "../../hooks/api";
+import { useDocumentTitle } from "../../hooks/document";
 
-export default function Feed({
-  items,
-  title,
-  onRefresh,
-  refreshing,
-  onLoadMore,
-  loading
-}) {
+export default function Feed({ action, items, title, onRefresh, onLoadMore }) {
+  useDocumentTitle(title);
+
   return (
     <>
       <Row crossAxisAlignment="center">
-        <Title
-          style={{
-            fontSize: "1.5rem"
-          }}
-        >
-          {title}
-        </Title>
-        {refreshing ? (
+        <Title>{title}</Title>
+        {action === API_ACTIONS.refreshing ? (
           <Spinner />
         ) : (
           <button
@@ -90,16 +81,12 @@ export default function Feed({
             )
           )}
         </ul>
-        {!refreshing &&
-          (loading ? (
-            <Spinner />
-          ) : (
-            onLoadMore && (
-              <Center>
-                <button onClick={onLoadMore}>Load more</button>
-              </Center>
-            )
-          ))}
+        {action === API_ACTIONS.loading && <Spinner />}
+        {onLoadMore && action === API_ACTIONS.idle && (
+          <Center>
+            <button onClick={onLoadMore}>Load more</button>
+          </Center>
+        )}
       </ErrorBoundary>
     </>
   );

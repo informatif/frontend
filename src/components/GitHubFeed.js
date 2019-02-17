@@ -1,6 +1,6 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi, useDocumentTitle } from "../hooks";
+import { useApi } from "../hooks/api";
 
 const title = "GitHub";
 
@@ -20,16 +20,9 @@ async function loadApi(page, signal) {
 }
 
 export default function GitHubFeed() {
-  useDocumentTitle(title);
-
-  const { items, refresh, refreshing } = useApi(loadApi);
+  const { action, items, refresh } = useApi(loadApi);
 
   return (
-    <Feed
-      title={title}
-      items={items}
-      onRefresh={refresh}
-      refreshing={refreshing}
-    />
+    <Feed title={title} action={action} items={items} onRefresh={refresh} />
   );
 }
