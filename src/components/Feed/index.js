@@ -17,16 +17,35 @@ import Title from "../Title";
 import Row from "../Row";
 import Spinner from "../Spinner";
 
-export default function Feed({ items, title, onRefresh, onLoadMore, loading }) {
+export default function Feed({
+  items,
+  title,
+  onRefresh,
+  refreshing,
+  onLoadMore,
+  loading
+}) {
   return (
     <>
-      <Row>
-        <Title>
-          <h2>{title}</h2>
+      <Row crossAxisAlignment="center">
+        <Title
+          style={{
+            fontSize: "1.5rem"
+          }}
+        >
+          {title}
         </Title>
-        <button onClick={onRefresh} className="header__action" title="Refresh">
-          <FaSyncAlt />
-        </button>
+        {refreshing ? (
+          <Spinner />
+        ) : (
+          <button
+            onClick={onRefresh}
+            className="header__action"
+            title="Refresh"
+          >
+            <FaSyncAlt />
+          </button>
+        )}
       </Row>
       <ErrorBoundary>
         <ul className={list}>
@@ -71,15 +90,16 @@ export default function Feed({ items, title, onRefresh, onLoadMore, loading }) {
             )
           )}
         </ul>
-        {loading ? (
-          <Spinner />
-        ) : (
-          onLoadMore && (
-            <Center>
-              <button onClick={onLoadMore}>Load more</button>
-            </Center>
-          )
-        )}
+        {!refreshing &&
+          (loading ? (
+            <Spinner />
+          ) : (
+            onLoadMore && (
+              <Center>
+                <button onClick={onLoadMore}>Load more</button>
+              </Center>
+            )
+          ))}
       </ErrorBoundary>
     </>
   );

@@ -26,9 +26,14 @@ async function loadApi(_, signal) {
 export default function RedditFeed() {
   useDocumentTitle(title);
 
-  const { loading, items, refresh } = useApi(loadApi);
+  const { items, refresh, refreshing } = useApi(loadApi);
 
   return (
-    <Feed title={title} items={items} onRefresh={refresh} loading={loading} />
+    <Feed
+      title={title}
+      items={items}
+      onRefresh={refresh}
+      refreshing={refreshing}
+    />
   );
 }

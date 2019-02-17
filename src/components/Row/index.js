@@ -1,6 +1,10 @@
 import React from "react";
-import { row } from "./Row.module.css";
+import { row, rowCrossAxisAlignmentCenter } from "./Row.module.css";
 
-export default function Row({ children }) {
-  return <div className={row}>{children}</div>;
+export default function Row({ children, crossAxisAlignment }) {
+  let className = row;
+  if (crossAxisAlignment === "center") {
+    className += rowCrossAxisAlignmentCenter;
+  }
+  return <div className={className}>{children}</div>;
 }

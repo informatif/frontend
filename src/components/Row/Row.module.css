@@ -1,3 +1,7 @@
 .row {
   display: flex;
 }
+
+.rowCrossAxisAlignmentCenter {
+  align-items: center;
+}

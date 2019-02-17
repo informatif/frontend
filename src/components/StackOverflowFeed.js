@@ -27,13 +27,14 @@ async function loadApi(page, signal) {
 export default function StackOverflowFeed() {
   useDocumentTitle(title);
 
-  const { loading, items, refresh, loadMore } = useApi(loadApi);
+  const { loading, items, refresh, refreshing, loadMore } = useApi(loadApi);
 
   return (
     <Feed
       title={title}
       items={items}
       onRefresh={refresh}
+      refreshing={refreshing}
       onLoadMore={loadMore}
       loading={loading}
     />

@@ -20,7 +20,13 @@ const App = () => (
         <h1>Informatif</h1>
       </Title>
     </Center>
-    <Suspense fallback={<Spinner />}>
+    <Suspense
+      fallback={
+        <Center>
+          <Spinner />
+        </Center>
+      }
+    >
       <Switch>
         <Redirect exact from="/" to="/hn" />
         <Route exact path="/hn" component={HackerNewsFeed} />

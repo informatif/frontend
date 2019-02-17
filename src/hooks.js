@@ -15,19 +15,20 @@ export function useApi(loadApi) {
     };
   }, [abortControllerRef]);
 
-  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
 
   async function refresh() {
-    setLoading(true);
+    setRefreshing(true);
     const newPage = 1;
     try {
       const newItems = await load(newPage);
       unstable_batchedUpdates(() => {
         setItems(newItems);
         setPage(newPage);
-        setLoading(false);
+        setRefreshing(false);
       });
     } catch (_) {
       // The component was unmounted
@@ -70,6 +71,7 @@ export function useApi(loadApi) {
     loading,
     items,
     refresh,
+    refreshing,
     loadMore
   };
 }
