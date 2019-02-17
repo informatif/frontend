@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 
-export function useApi(loadApi) {
+export function useApi(path) {
   let abortControllerRef = useRef(null);
 
   useEffect(() => {
@@ -69,7 +69,13 @@ export function useApi(loadApi) {
       abortControllerRef.current.abort();
     }
     abortControllerRef.current = new AbortController();
-    return await loadApi(page, abortControllerRef.current.signal);
+    const res = await fetch(
+      `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
+      {
+        signal: abortControllerRef.current.signal
+      }
+    );
+    return res.json();
   }
 
   return {
