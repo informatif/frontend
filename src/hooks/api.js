@@ -1,4 +1,6 @@
-import { useEffect, useRef, useReducer } from "react";
+import { useEffect, useReducer } from "react";
+
+let abortController = null;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -58,18 +60,16 @@ const actions = {
 };
 
 export function useApi(path) {
-  let abortControllerRef = useRef(null);
-
   useEffect(() => {
     refresh();
 
     return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-        abortControllerRef.current = null;
+      if (abortController) {
+        abortController.abort();
+        abortController = null;
       }
     };
-  }, [abortControllerRef]);
+  }, []);
 
   const [state, dispatch] = useReducer(reducer, {
     status: STATUSES.refreshing,
@@ -112,14 +112,14 @@ export function useApi(path) {
   }
 
   async function load(page) {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
+    if (abortController) {
+      abortController.abort();
     }
-    abortControllerRef.current = new AbortController();
+    abortController = new AbortController();
     const res = await fetch(
       `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
       {
-        signal: abortControllerRef.current.signal
+        signal: abortController.signal
       }
     );
     return res.json();
