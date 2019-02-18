@@ -16,6 +16,7 @@ import Title from "../Title";
 import Row from "../Row";
 import Spinner from "../Spinner";
 import Button from "../Button";
+import Padding from "../Padding";
 import { STATUSES } from "../../hooks/api";
 import { useDocumentTitle } from "../../hooks/document";
 
@@ -25,7 +26,9 @@ export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
   return (
     <>
       <Row crossAxisAlignment="center">
-        <Title>{title}</Title>
+        <Padding padding={{ left: "8px", right: "8px" }}>
+          <Title>{title}</Title>
+        </Padding>
         {status === STATUSES.refreshing ? (
           <Spinner />
         ) : (
@@ -39,9 +42,11 @@ export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
           ({ link, title, points, responseCount, id, author, description }) => (
             <li className={listItem} key={id}>
               <div className={itemContent}>
-                <a href={link} className={itemLink} title="Title">
-                  {title} {description && `— ${description}`}
-                </a>
+                <Title>
+                  <a href={link} className={itemLink} title="Title">
+                    {title} {description && `— ${description}`}
+                  </a>
+                </Title>
                 <div>
                   <span title="Author" className={itemSubtitle}>
                     {author}
