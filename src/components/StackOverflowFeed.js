@@ -3,12 +3,12 @@ import Feed from "./Feed";
 import { useApi } from "../hooks/api";
 
 export default function StackOverflowFeed() {
-  const { action, items, refresh, loadMore } = useApi("so");
+  const { status, items, refresh, loadMore } = useApi("so");
 
   return (
     <Feed
       title="Stack Overflow"
-      action={action}
+      status={status}
       items={items}
       onRefresh={refresh}
       onLoadMore={loadMore}

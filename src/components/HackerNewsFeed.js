@@ -3,12 +3,12 @@ import Feed from "./Feed";
 import { useApi } from "../hooks/api";
 
 export default function HackerNewsFeed() {
-  const { action, items, refresh, loadMore } = useApi("hn");
+  const { status, items, refresh, loadMore } = useApi("hn");
 
   return (
     <Feed
       title="Hacker News"
-      action={action}
+      status={status}
       items={items}
       onRefresh={refresh}
       onLoadMore={loadMore}

@@ -1,5 +1,61 @@
-import { useEffect, useState, useRef } from "react";
-import { unstable_batchedUpdates } from "react-dom";
+import { useEffect, useRef, useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case actions.refresh:
+      return {
+        ...state,
+        status: STATUSES.refreshing
+      };
+    case actions.loadMore:
+      return {
+        ...state,
+        status: STATUSES.loadingMore
+      };
+    case actions.refreshed:
+      return {
+        ...state,
+        status: STATUSES.idle,
+        items: action.items,
+        page: action.page
+      };
+    case actions.loadedMore:
+      // De-duplicate the arrays
+      const reconciledItems = state.items;
+      for (let item of action.items) {
+        if (!state.items.find(el => el.id === item.id)) {
+          reconciledItems.push(item);
+        }
+      }
+      return {
+        ...state,
+        status: STATUSES.idle,
+        items: reconciledItems,
+        page: action.page
+      };
+    case actions.idle:
+      return {
+        ...state,
+        status: STATUSES.idle
+      };
+    default:
+      return state;
+  }
+}
+
+export const STATUSES = {
+  refreshing: "refreshing",
+  loadingMore: "loadingMore",
+  idle: "idle"
+};
+
+const actions = {
+  refresh: "refresh",
+  loadMore: "loadMore",
+  refreshed: "refreshed",
+  loadedMore: "loadedMore",
+  idle: "idle"
+};
 
 export function useApi(path) {
   let abortControllerRef = useRef(null);
@@ -15,50 +71,41 @@ export function useApi(path) {
     };
   }, [abortControllerRef]);
 
-  const [action, setAction] = useState(API_ACTIONS.refreshing);
-  const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
+  const [state, dispatch] = useReducer(reducer, {
+    status: STATUSES.refreshing,
+    items: [],
+    page: 1
+  });
 
   async function refresh() {
-    setAction(API_ACTIONS.refreshing);
+    dispatch({
+      type: actions.refresh
+    });
     const newPage = 1;
     try {
       const newItems = await load(newPage);
-      unstable_batchedUpdates(() => {
-        setItems(newItems);
-        setPage(newPage);
-        setAction(API_ACTIONS.idle);
-      });
+      dispatch({ type: actions.refreshed, items: newItems, page: newPage });
     } catch (err) {
       if (err.name !== "AbortError") {
-        setAction(API_ACTIONS.idle);
+        dispatch({ type: actions.idle });
         console.error(err);
       }
     }
   }
 
   async function loadMore() {
-    setAction(API_ACTIONS.loading);
-    const newPage = page + 1;
+    dispatch({ type: actions.loadMore });
+    const newPage = state.page + 1;
     try {
       const newItems = await load(newPage);
-      unstable_batchedUpdates(() => {
-        setItems(oldItems => {
-          // De-duplicate the arrays
-          const consolidatedItems = oldItems;
-          for (let item of newItems) {
-            if (!oldItems.find(el => el.id === item.id)) {
-              consolidatedItems.push(item);
-            }
-          }
-          return consolidatedItems;
-        });
-        setPage(newPage);
-        setAction(API_ACTIONS.idle);
+      dispatch({
+        type: actions.loadedMore,
+        page: newPage,
+        items: newItems
       });
     } catch (err) {
       if (err.name !== "AbortError") {
-        setAction(API_ACTIONS.idle);
+        dispatch({ type: actions.idle });
         console.error(err);
       }
     }
@@ -79,15 +126,9 @@ export function useApi(path) {
   }
 
   return {
-    items,
-    action,
+    items: state.items,
+    status: state.status,
     refresh,
     loadMore
   };
 }
-
-export const API_ACTIONS = {
-  refreshing: "refreshing",
-  loading: "loading",
-  idle: "idle"
-};

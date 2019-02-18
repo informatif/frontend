@@ -15,17 +15,17 @@ import Center from "../Center";
 import Title from "../Title";
 import Row from "../Row";
 import Spinner from "../Spinner";
-import { API_ACTIONS } from "../../hooks/api";
+import { STATUSES } from "../../hooks/api";
 import { useDocumentTitle } from "../../hooks/document";
 
-export default function Feed({ action, items, title, onRefresh, onLoadMore }) {
+export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
   useDocumentTitle(title);
 
   return (
     <>
       <Row crossAxisAlignment="center">
         <Title>{title}</Title>
-        {action === API_ACTIONS.refreshing ? (
+        {status === STATUSES.refreshing ? (
           <Spinner />
         ) : (
           <button
@@ -72,8 +72,8 @@ export default function Feed({ action, items, title, onRefresh, onLoadMore }) {
         )}
       </ul>
       <Center>
-        {action === API_ACTIONS.loading && <Spinner />}
-        {onLoadMore && action === API_ACTIONS.idle && (
+        {status === STATUSES.loadingMore && <Spinner />}
+        {onLoadMore && status === STATUSES.idle && (
           <button onClick={onLoadMore}>Load more</button>
         )}
       </Center>
