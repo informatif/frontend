@@ -15,6 +15,7 @@ import Center from "../Center";
 import Title from "../Title";
 import Row from "../Row";
 import Spinner from "../Spinner";
+import Button from "../Button";
 import { STATUSES } from "../../hooks/api";
 import { useDocumentTitle } from "../../hooks/document";
 
@@ -28,13 +29,9 @@ export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
         {status === STATUSES.refreshing ? (
           <Spinner />
         ) : (
-          <button
-            onClick={onRefresh}
-            className="header__action"
-            title="Refresh"
-          >
+          <Button onClick={onRefresh} title="Refresh">
             <FaSyncAlt />
-          </button>
+          </Button>
         )}
       </Row>
       <ul className={list}>
@@ -74,7 +71,7 @@ export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
       <Center>
         {status === STATUSES.loadingMore && <Spinner />}
         {onLoadMore && status === STATUSES.idle && (
-          <button onClick={onLoadMore}>Load more</button>
+          <Button onClick={onLoadMore}>Load more</Button>
         )}
       </Center>
     </>
