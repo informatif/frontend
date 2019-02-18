@@ -28,7 +28,7 @@
   ],
   "devDependencies": {
     "eslint-plugin-prettier": "3.0.1",
-    "eslint-plugin-react-hooks": "1.1.0-alpha.0",
+    "eslint-plugin-react-hooks": "1.1.0-alpha.1",
     "prettier": "1.16.4",
     "source-map-explorer": "1.7.0"
   }
