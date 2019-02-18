@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useCallback } from "react";
 
 export const STATUSES = {
   refreshing: "refreshing",
@@ -19,24 +19,12 @@ const abortErrorName = "AbortError";
 let abortController = null;
 
 export function useApi(path) {
-  useEffect(() => {
-    refresh();
-
-    return () => {
-      if (abortController) {
-        abortController.abort();
-        abortController = null;
-      }
-    };
-  }, []);
-
   const [state, dispatch] = useReducer(reducer, {
     status: STATUSES.refreshing,
     items: [],
     page: 1
   });
-
-  async function refresh() {
+  const refresh = useCallback(async () => {
     dispatch({
       type: actions.refresh
     });
@@ -50,9 +38,8 @@ export function useApi(path) {
         console.error(err);
       }
     }
-  }
-
-  async function loadMore() {
+  }, [dispatch, path]);
+  const loadMore = useCallback(async () => {
     dispatch({ type: actions.loadMore });
     const newPage = state.page + 1;
     try {
@@ -68,7 +55,18 @@ export function useApi(path) {
         console.error(err);
       }
     }
-  }
+  }, [dispatch, path, state.page]);
+
+  useEffect(() => {
+    refresh();
+
+    return () => {
+      if (abortController) {
+        abortController.abort();
+        abortController = null;
+      }
+    };
+  }, [refresh]);
 
   return {
     items: state.items,
