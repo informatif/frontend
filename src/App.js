@@ -40,7 +40,7 @@ const App = () => (
         </Switch>
       </ErrorBoundary>
     </Suspense>
-    <Margin margin="48px" />
+    <Margin margin="56px" />
     <Footer />
   </BrowserRouter>
 );
