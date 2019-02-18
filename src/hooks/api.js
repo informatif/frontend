@@ -1,6 +1,82 @@
 import { useEffect, useReducer } from "react";
 
+export const STATUSES = {
+  refreshing: "refreshing",
+  loadingMore: "loadingMore",
+  idle: "idle"
+};
+
+const actions = {
+  refresh: "refresh",
+  loadMore: "loadMore",
+  refreshed: "refreshed",
+  loadedMore: "loadedMore",
+  idle: "idle"
+};
+
+const abortErrorName = "AbortError";
+
 let abortController = null;
+
+export function useApi(path) {
+  useEffect(() => {
+    refresh();
+
+    return () => {
+      if (abortController) {
+        abortController.abort();
+        abortController = null;
+      }
+    };
+  }, []);
+
+  const [state, dispatch] = useReducer(reducer, {
+    status: STATUSES.refreshing,
+    items: [],
+    page: 1
+  });
+
+  async function refresh() {
+    dispatch({
+      type: actions.refresh
+    });
+    const newPage = 1;
+    try {
+      const newItems = await load(path, newPage);
+      dispatch({ type: actions.refreshed, items: newItems, page: newPage });
+    } catch (err) {
+      if (err.name !== abortErrorName) {
+        dispatch({ type: actions.idle });
+        console.error(err);
+      }
+    }
+  }
+
+  async function loadMore() {
+    dispatch({ type: actions.loadMore });
+    const newPage = state.page + 1;
+    try {
+      const newItems = await load(path, newPage);
+      dispatch({
+        type: actions.loadedMore,
+        page: newPage,
+        items: newItems
+      });
+    } catch (err) {
+      if (err.name !== abortErrorName) {
+        dispatch({ type: actions.idle });
+        console.error(err);
+      }
+    }
+  }
+
+  return {
+    items: state.items,
+    status: state.status,
+    refresh,
+    loadMore
+  };
+}
 
 function reducer(state, action) {
   switch (action.type) {
@@ -45,90 +121,16 @@ function reducer(state, action) {
   }
 }
 
-export const STATUSES = {
-  refreshing: "refreshing",
-  loadingMore: "loadingMore",
-  idle: "idle"
-};
-
-const actions = {
-  refresh: "refresh",
-  loadMore: "loadMore",
-  refreshed: "refreshed",
-  loadedMore: "loadedMore",
-  idle: "idle"
-};
-
-export function useApi(path) {
-  useEffect(() => {
-    refresh();
-
-    return () => {
-      if (abortController) {
-        abortController.abort();
-        abortController = null;
-      }
-    };
-  }, []);
-
-  const [state, dispatch] = useReducer(reducer, {
-    status: STATUSES.refreshing,
-    items: [],
-    page: 1
-  });
-
-  async function refresh() {
-    dispatch({
-      type: actions.refresh
-    });
-    const newPage = 1;
-    try {
-      const newItems = await load(newPage);
-      dispatch({ type: actions.refreshed, items: newItems, page: newPage });
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        dispatch({ type: actions.idle });
-        console.error(err);
-      }
-    }
+async function load(path, page) {
+  if (abortController) {
+    abortController.abort();
   }
-
-  async function loadMore() {
-    dispatch({ type: actions.loadMore });
-    const newPage = state.page + 1;
-    try {
-      const newItems = await load(newPage);
-      dispatch({
-        type: actions.loadedMore,
-        page: newPage,
-        items: newItems
-      });
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        dispatch({ type: actions.idle });
-        console.error(err);
-      }
+  abortController = new AbortController();
+  const res = await fetch(
+    `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
+    {
+      signal: abortController.signal
     }
-  }
-
-  async function load(page) {
-    if (abortController) {
-      abortController.abort();
-    }
-    abortController = new AbortController();
-    const res = await fetch(
-      `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
-      {
-        signal: abortController.signal
-      }
-    );
-    return res.json();
-  }
-
-  return {
-    items: state.items,
-    status: state.status,
-    refresh,
-    loadMore
-  };
+  );
+  return res.json();
 }
