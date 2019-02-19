@@ -1,7 +1,15 @@
 {
   "name": "informatif",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "Informatif: glanceable headlines for the media sources you care about.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/informatif/frontend.git"
+  },
+  "author": "Zhao Wei Liew <zhaoweiliew@gmail.com>",
+  "homepage": "https://github.com/informatif/frontend#readme",
+  "license": "MIT",
   "dependencies": {
     "react": "16.8.2",
     "react-dom": "16.8.2",
