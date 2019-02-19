@@ -9,7 +9,7 @@ const StyledAppNavLink = styled(NavLink)`
   font-size: 1.5rem;
   padding: 0 8px;
   text-decoration: none;
-  transition: color 160ms ease-out;
+  transition: color 80ms ease-out;
 
   :hover {
     color: var(--primary-color);
