@@ -8,4 +8,8 @@ export default styled.button`
   color: var(--text-color);
   display: inline-flex;
   padding: 4px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
