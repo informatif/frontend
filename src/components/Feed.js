@@ -1,24 +1,47 @@
 import React from "react";
+import styled from "styled-components/macro";
 import {
   FaRegCommentAlt,
   FaSyncAlt,
   FaRegArrowAltCircleUp
 } from "react-icons/fa";
-import {
-  list,
-  listItem,
-  itemContent,
-  itemSubtitle,
-  itemLink
-} from "./Feed.module.css";
-import Center from "../Center";
-import Title from "../Title";
-import Row from "../Row";
-import Spinner from "../Spinner";
-import Button from "../Button";
-import Padding from "../Padding";
-import { STATUSES } from "../../hooks/api";
-import { useDocumentTitle } from "../../hooks/document";
+import Center from "./Center";
+import Title from "./Title";
+import Row from "./Row";
+import Spinner from "./Spinner";
+import Button from "./Button";
+import Padding from "./Padding";
+import { STATUSES } from "../hooks/api";
+import { useDocumentTitle } from "../hooks/document";
+
+const List = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0 8px;
+`;
+
+const ListItem = styled.li`
+  align-items: center;
+  display: flex;
+  min-height: 48px;
+  padding: 4px 0;
+`;
+
+const ItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+const ItemLink = styled.a`
+  color: var(--primary-color);
+  text-decoration: none;
+`;
+
+const ItemSubtitle = styled.span`
+  opacity: 0.8;
+  font-size: 0.8rem;
+`;
 
 export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
   useDocumentTitle(title);
@@ -37,42 +60,40 @@ export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
           </Button>
         )}
       </Row>
-      <ul className={list}>
+      <List>
         {items.map(
           ({ link, title, points, responseCount, id, author, description }) => (
-            <li className={listItem} key={id}>
-              <div className={itemContent}>
+            <ListItem key={id}>
+              <ItemContent>
                 <Title>
-                  <a href={link} className={itemLink} title="Title">
+                  <ItemLink href={link} title="Title">
                     {title} {description && `— ${description}`}
-                  </a>
+                  </ItemLink>
                 </Title>
                 <div>
-                  <span title="Author" className={itemSubtitle}>
-                    {author}
-                  </span>
+                  <ItemSubtitle title="Author">{author}</ItemSubtitle>
                   {points != null && (
                     <>
                       <span> • </span>
-                      <span className={itemSubtitle} title="Points">
+                      <ItemSubtitle title="Points">
                         {points} <FaRegArrowAltCircleUp />
-                      </span>
+                      </ItemSubtitle>
                     </>
                   )}
                   {responseCount != null && (
                     <>
                       <span> • </span>
-                      <span className={itemSubtitle} title="Responses">
+                      <ItemSubtitle title="Responses">
                         {responseCount} <FaRegCommentAlt />
-                      </span>
+                      </ItemSubtitle>
                     </>
                   )}
                 </div>
-              </div>
-            </li>
+              </ItemContent>
+            </ListItem>
           )
         )}
-      </ul>
+      </List>
       <Center>
         {status === STATUSES.loadingMore && <Spinner />}
         {onLoadMore && status === STATUSES.idle && (
