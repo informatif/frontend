@@ -5,10 +5,10 @@
   "description": "Informatif: glanceable headlines for the media sources you care about.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/informatif/frontend.git"
+    "url": "git+https://github.com/informatif/informatif.git"
   },
   "author": "Zhao Wei Liew <zhaoweiliew@gmail.com>",
-  "homepage": "https://github.com/informatif/frontend#readme",
+  "homepage": "https://github.com/informatif/informatif#readme",
   "license": "MIT",
   "dependencies": {
     "react": "16.8.2",
