@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "serve -s build -l 3000"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +39,7 @@
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-react-hooks": "1.1.0-rc.0",
     "prettier": "1.16.4",
+    "serve": "^10.1.2",
     "source-map-explorer": "1.7.0"
   }
 }
