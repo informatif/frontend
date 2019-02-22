@@ -20,7 +20,15 @@ const StyledAppNavLink = styled(NavLink)`
   }
 `;
 
-export default function AppNavLink({ children, title, to }) {
+export default function AppNavLink({
+  children,
+  title,
+  to
+}: {
+  children: {};
+  title: string;
+  to: string;
+}) {
   return (
     <StyledAppNavLink
       exact

@@ -11,7 +11,8 @@ import Row from "./Row";
 import Spinner from "./Spinner";
 import Button from "./Button";
 import Padding from "./Padding";
-import { STATUSES } from "../hooks/api";
+import { STATUSES } from "../constants/api";
+import { Item } from "../constants/Item";
 import { useDocumentTitle } from "../hooks/document";
 
 const List = styled.ul`
@@ -43,7 +44,19 @@ const ItemSubtitle = styled.span`
   font-size: 0.8rem;
 `;
 
-export default function Feed({ status, items, title, onRefresh, onLoadMore }) {
+export default function Feed({
+  status,
+  items,
+  title,
+  onRefresh,
+  onLoadMore
+}: {
+  status: string;
+  items: Item[];
+  title: string;
+  onRefresh: () => void;
+  onLoadMore?: () => void;
+}) {
   useDocumentTitle(title);
 
   return (

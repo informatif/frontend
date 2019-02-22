@@ -25,7 +25,7 @@ const StyledFooter = styled.footer`
   width: 100%;
 `;
 
-export default function Footer({ className }) {
+export default function Footer() {
   return (
     <StyledFooter>
       <DarkModeToggle />

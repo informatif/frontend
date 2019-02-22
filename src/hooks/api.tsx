@@ -1,10 +1,20 @@
 import { useEffect, useReducer, useCallback } from "react";
+import { STATUSES } from "../constants/api";
+import { Item } from "../constants/Item";
 
-export const STATUSES = {
-  refreshing: "refreshing",
-  loadingMore: "loadingMore",
-  idle: "idle"
-};
+interface State {
+  status: string;
+  items: Item[];
+  page: number;
+}
+
+interface Action {
+  type: string;
+  payload?: {
+    items: Item[];
+    page: number;
+  };
+}
 
 const actions = {
   refresh: "refresh",
@@ -16,22 +26,23 @@ const actions = {
 
 const abortErrorName = "AbortError";
 
-let abortController = null;
+let abortController: AbortController | null = null;
 
-export function useApi(path) {
+export function useApi(path: string) {
   const [state, dispatch] = useReducer(reducer, {
     status: STATUSES.refreshing,
     items: [],
     page: 1
   });
   const refresh = useCallback(async () => {
-    dispatch({
-      type: actions.refresh
-    });
+    dispatch({ type: actions.refresh });
     const newPage = 1;
     try {
       const newItems = await load(path, newPage);
-      dispatch({ type: actions.refreshed, items: newItems, page: newPage });
+      dispatch({
+        type: actions.refreshed,
+        payload: { items: newItems, page: newPage }
+      });
     } catch (err) {
       if (err.name !== abortErrorName) {
         dispatch({ type: actions.idle });
@@ -46,8 +57,7 @@ export function useApi(path) {
       const newItems = await load(path, newPage);
       dispatch({
         type: actions.loadedMore,
-        page: newPage,
-        items: newItems
+        payload: { items: newItems, page: newPage }
       });
     } catch (err) {
       if (err.name !== abortErrorName) {
@@ -76,7 +86,7 @@ export function useApi(path) {
   };
 }
 
-function reducer(state, action) {
+function reducer(state: State, action: Action) {
   switch (action.type) {
     case actions.refresh:
       return {
@@ -89,16 +99,28 @@ function reducer(state, action) {
         status: STATUSES.loadingMore
       };
     case actions.refreshed:
+      if (!action.payload) {
+        return {
+          ...state,
+          status: STATUSES.idle
+        };
+      }
       return {
         ...state,
         status: STATUSES.idle,
-        items: action.items,
-        page: action.page
+        items: action.payload.items,
+        page: action.payload.page
       };
     case actions.loadedMore:
+      if (!action.payload) {
+        return {
+          ...state,
+          status: STATUSES.idle
+        };
+      }
       // De-duplicate the arrays
       const reconciledItems = state.items;
-      for (let item of action.items) {
+      for (let item of action.payload.items) {
         if (!state.items.find(el => el.id === item.id)) {
           reconciledItems.push(item);
         }
@@ -107,7 +129,7 @@ function reducer(state, action) {
         ...state,
         status: STATUSES.idle,
         items: reconciledItems,
-        page: action.page
+        page: action.payload.page
       };
     case actions.idle:
       return {
@@ -119,7 +141,7 @@ function reducer(state, action) {
   }
 }
 
-async function load(path, page) {
+async function load(path: string, page: number) {
   if (abortController) {
     abortController.abort();
   }
