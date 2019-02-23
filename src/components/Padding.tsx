@@ -1,16 +1,11 @@
-import React from "react";
+import styled from "styled-components/macro";
 
-export default function Padding({
-  children,
-  padding
-}: {
-  children: {};
-  padding: { left: number | string; right: number | string };
-}) {
-  const { left, right } = padding;
-  const style = {
-    paddingRight: right,
-    paddingLeft: left
-  };
-  return <span style={style}>{children}</span>;
-}
+type Padding = { top?: string; right?: string; bottom?: string; left?: string };
+
+export default styled.span`
+  display: inline-block;
+  padding-top: ${({ padding }: { padding: Padding }) => padding.top};
+  padding-right: ${({ padding }: { padding: Padding }) => padding.right};
+  padding-bottom: ${({ padding }: { padding: Padding }) => padding.bottom};
+  padding-left: ${({ padding }: { padding: Padding }) => padding.left};
+`;

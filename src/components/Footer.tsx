@@ -5,10 +5,11 @@ import {
   FaHackerNews,
   FaNewspaper,
   FaReddit,
-  FaGithub
+  FaGithub,
+  FaCog
 } from "react-icons/fa";
 import AppNavLink from "./AppNavLink";
-import DarkModeToggle from "./DarkModeToggle";
+import { useLeftHandedMode } from "../hooks/prefs";
 
 const StyledFooter = styled.footer`
   align-items: center;
@@ -26,26 +27,36 @@ const StyledFooter = styled.footer`
 `;
 
 export default function Footer() {
-  return (
-    <StyledFooter>
-      <DarkModeToggle />
-      <div>
-        <AppNavLink to="/hn" title="Hacker News">
-          <FaHackerNews />
-        </AppNavLink>
-        <AppNavLink to="/gh" title="GitHub">
-          <FaGithub />
-        </AppNavLink>
-        <AppNavLink to="/so" title="Stack Overflow">
-          <FaStackOverflow />
-        </AppNavLink>
-        <AppNavLink to="/reddit" title="Reddit">
-          <FaReddit />
-        </AppNavLink>
-        <AppNavLink to="/global" title="Global News">
-          <FaNewspaper />
-        </AppNavLink>
-      </div>
-    </StyledFooter>
+  const [leftHandedModeEnabled] = useLeftHandedMode(false);
+  const links = [
+    <AppNavLink to="/prefs" title="Preferences">
+      <FaCog />
+    </AppNavLink>
+  ];
+  const feedLinks = (
+    <div>
+      <AppNavLink to="/hn" title="Hacker News">
+        <FaHackerNews />
+      </AppNavLink>
+      <AppNavLink to="/gh" title="GitHub">
+        <FaGithub />
+      </AppNavLink>
+      <AppNavLink to="/so" title="Stack Overflow">
+        <FaStackOverflow />
+      </AppNavLink>
+      <AppNavLink to="/reddit" title="Reddit">
+        <FaReddit />
+      </AppNavLink>
+      <AppNavLink to="/global" title="Global News">
+        <FaNewspaper />
+      </AppNavLink>
+    </div>
   );
+  if (leftHandedModeEnabled) {
+    links.unshift(feedLinks);
+  } else {
+    links.push(feedLinks);
+  }
+
+  return <StyledFooter>{links}</StyledFooter>;
 }
