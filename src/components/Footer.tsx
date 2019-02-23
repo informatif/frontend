@@ -5,10 +5,11 @@ import {
   FaHackerNews,
   FaNewspaper,
   FaReddit,
-  FaGithub
+  FaGithub,
+  FaCog
 } from "react-icons/fa";
 import AppNavLink from "./AppNavLink";
-import DarkModeToggle from "./DarkModeToggle";
+import { useLeftHandedMode } from "../hooks/prefs";
 
 const StyledFooter = styled.footer`
   align-items: center;
@@ -25,10 +26,18 @@ const StyledFooter = styled.footer`
   width: 100%;
 `;
 
+const PrefsLink = () => (
+  <AppNavLink to="/prefs" title="Preferences">
+    <FaCog />
+  </AppNavLink>
+);
+
 export default function Footer() {
+  const [leftHandedModeEnabled] = useLeftHandedMode(false);
+
   return (
     <StyledFooter>
-      <DarkModeToggle />
+      {!leftHandedModeEnabled && <PrefsLink />}
       <div>
         <AppNavLink to="/hn" title="Hacker News">
           <FaHackerNews />
@@ -46,6 +55,7 @@ export default function Footer() {
           <FaNewspaper />
         </AppNavLink>
       </div>
+      {leftHandedModeEnabled && <PrefsLink />}
     </StyledFooter>
   );
 }

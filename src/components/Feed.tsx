@@ -61,7 +61,7 @@ export default function Feed({
 
   return (
     <>
-      <Row crossAxisAlignment="center">
+      <Row>
         <Padding padding={{ left: "8px", right: "8px" }}>
           <Title>{title}</Title>
         </Padding>
