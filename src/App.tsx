@@ -7,6 +7,7 @@ import Container from "./components/Container";
 import Spinner from "./components/Spinner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import useDarkMode from "use-dark-mode";
+import { DEFAULT_NIGHT_MODE } from "./constants/prefs";
 
 const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
@@ -18,7 +19,7 @@ const NoMatch = lazy(() => import("./components/NoMatch"));
 
 export default function App() {
   // TODO: Query dark mode directly in components that use it
-  useDarkMode(false);
+  useDarkMode(DEFAULT_NIGHT_MODE);
 
   return (
     <BrowserRouter>

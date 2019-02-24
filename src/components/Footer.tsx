@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components/macro";
 import {
   FaStackOverflow,
@@ -9,7 +9,12 @@ import {
   FaCog
 } from "react-icons/fa";
 import AppNavLink from "./AppNavLink";
-import { useLeftHandedMode } from "../hooks/prefs";
+import { useLeftHandedMode, useDisplayedFeed } from "../hooks/prefs";
+import {
+  DEFAULT_LEFT_HANDED_MODE,
+  FEED_ID_TO_TITLE,
+  DEFAULT_DISPLAYED_FEED
+} from "../constants/prefs";
 
 const StyledFooter = styled.footer`
   align-items: center;
@@ -32,28 +37,33 @@ const PrefsLink = () => (
   </AppNavLink>
 );
 
+const feedIdToIcon: {
+  [index: string]: ReactElement;
+} = {
+  hn: <FaHackerNews />,
+  gh: <FaGithub />,
+  so: <FaStackOverflow />,
+  reddit: <FaReddit />,
+  global: <FaNewspaper />
+};
+
 export default function Footer() {
-  const [leftHandedModeEnabled] = useLeftHandedMode(false);
+  const [leftHandedModeEnabled] = useLeftHandedMode(DEFAULT_LEFT_HANDED_MODE);
 
   return (
     <StyledFooter>
       {!leftHandedModeEnabled && <PrefsLink />}
       <div>
-        <AppNavLink to="/hn" title="Hacker News">
-          <FaHackerNews />
-        </AppNavLink>
-        <AppNavLink to="/gh" title="GitHub">
-          <FaGithub />
-        </AppNavLink>
-        <AppNavLink to="/so" title="Stack Overflow">
-          <FaStackOverflow />
-        </AppNavLink>
-        <AppNavLink to="/reddit" title="Reddit">
-          <FaReddit />
-        </AppNavLink>
-        <AppNavLink to="/global" title="Global News">
-          <FaNewspaper />
-        </AppNavLink>
+        {Object.keys(FEED_ID_TO_TITLE).map(id => {
+          const [displayed] = useDisplayedFeed(id)(DEFAULT_DISPLAYED_FEED);
+          return (
+            displayed && (
+              <AppNavLink to={`/${id}`} title={FEED_ID_TO_TITLE[id]} key={id}>
+                {feedIdToIcon[id]}
+              </AppNavLink>
+            )
+          );
+        })}
       </div>
       {leftHandedModeEnabled && <PrefsLink />}
     </StyledFooter>

@@ -2,21 +2,26 @@ import React from "react";
 import useDarkMode from "use-dark-mode";
 import Container from "./Container";
 import Title from "./Title";
-import { useLeftHandedMode } from "../hooks/prefs";
-import Column from "./Column";
+import { useLeftHandedMode, useDisplayedFeed } from "../hooks/prefs";
+import {
+  DEFAULT_NIGHT_MODE,
+  DEFAULT_LEFT_HANDED_MODE,
+  FEED_ID_TO_TITLE,
+  DEFAULT_DISPLAYED_FEED
+} from "../constants/prefs";
 
 function TogglePref({
   id,
   title,
   description,
   handleChange,
-  value
+  checked
 }: {
   id: string;
   title: string;
   description: string;
   handleChange: () => void;
-  value: boolean;
+  checked: boolean;
 }) {
   return (
     <Container padding={{ top: "8px", bottom: "8px" }}>
@@ -27,7 +32,7 @@ function TogglePref({
           role="switch"
           id={id}
           onChange={handleChange}
-          checked={value}
+          checked={checked}
         />
         <p>{description}</p>
       </label>
@@ -35,29 +40,79 @@ function TogglePref({
   );
 }
 
+function ListPref({
+  title,
+  items
+}: {
+  id: string;
+  title: string;
+  items: {
+    id: string;
+    label: string;
+    checked: boolean;
+    handleChange: () => void;
+  }[];
+}) {
+  return (
+    <Container padding={{ top: "8px", bottom: "8px" }}>
+      <Title>{title}</Title>
+      {items.map(({ id, label, checked, handleChange }) => (
+        <Container padding={{ top: "2px", bottom: "2px" }} key={id}>
+          <label htmlFor={id}>{label}</label>
+          <input
+            type="checkbox"
+            role="switch"
+            id={id}
+            onChange={handleChange}
+            checked={checked}
+          />
+        </Container>
+      ))}
+    </Container>
+  );
+}
+
 function NightModePref() {
-  const { value, toggle } = useDarkMode(false);
+  const { value, toggle } = useDarkMode(DEFAULT_NIGHT_MODE);
   return (
     <TogglePref
       id="night-mode"
       title="Night mode"
       description="Optimize color scheme for viewing in the dark"
       handleChange={toggle}
-      value={value}
+      checked={value}
     />
   );
 }
 
 function LeftHandedModePref() {
-  const [enabled, setEnabled] = useLeftHandedMode(false);
+  const [enabled, setEnabled] = useLeftHandedMode(DEFAULT_LEFT_HANDED_MODE);
   return (
     <TogglePref
       id="left-handed-mode"
       title="Left-handed mode"
       description="Improve accessibility for left-handed use"
       handleChange={() => setEnabled(prevEnabled => !prevEnabled)}
-      value={enabled}
+      checked={enabled}
     />
+  );
+}
+
+function DisplayedFeedsPref() {
+  const feeds = Object.keys(FEED_ID_TO_TITLE).map((feedId: string) => {
+    const [displayed, setDisplayed] = useDisplayedFeed(feedId)(
+      DEFAULT_DISPLAYED_FEED
+    );
+    return {
+      id: feedId,
+      label: FEED_ID_TO_TITLE[feedId],
+      checked: displayed,
+      handleChange: () =>
+        setDisplayed((prevDisplayed: boolean) => !prevDisplayed)
+    };
+  });
+  return (
+    <ListPref id="displayed-feeds" title="Displayed feeds" items={feeds} />
   );
 }
 
@@ -67,6 +122,7 @@ export default function Preferences() {
       <Title>Preferences</Title>
       <NightModePref />
       <LeftHandedModePref />
+      <DisplayedFeedsPref />
     </Container>
   );
 }
