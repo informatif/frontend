@@ -1,7 +1,7 @@
 import React from "react";
 import useDarkMode from "use-dark-mode";
-import Container from "./Container";
-import Title from "./Title";
+import Container from "./presentation/Container";
+import Title from "./presentation/Title";
 import { useLeftHandedMode, useDisplayedFeed } from "../hooks/prefs";
 import {
   DEFAULT_NIGHT_MODE,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegSadTear } from "react-icons/fa";
-import Column from "./Column";
+import Column from "./presentation/Column";
 import { useDocumentTitle } from "../hooks/document";
 
 export default function NoMatch() {

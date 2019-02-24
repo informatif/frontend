@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaRegSadTear } from "react-icons/fa";
-import Column from "./Column";
+import Column from "./presentation/Column";
 
 export default class ErrorBoundary extends Component {
   state = {

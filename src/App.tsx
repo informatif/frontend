@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Title from "./components/Title";
-import Center from "./components/Center";
+import Title from "./components/presentation/Title";
+import Center from "./components/presentation/Center";
 import Footer from "./components/Footer";
-import Container from "./components/Container";
-import Spinner from "./components/Spinner";
+import Container from "./components/presentation/Container";
+import Spinner from "./components/presentation/Spinner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import useDarkMode from "use-dark-mode";
 import { DEFAULT_NIGHT_MODE } from "./constants/prefs";

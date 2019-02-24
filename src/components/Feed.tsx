@@ -5,12 +5,12 @@ import {
   FaSyncAlt,
   FaRegArrowAltCircleUp
 } from "react-icons/fa";
-import Center from "./Center";
-import Title from "./Title";
-import Row from "./Row";
-import Spinner from "./Spinner";
-import Button from "./Button";
-import Container from "./Container";
+import Center from "./presentation/Center";
+import Title from "./presentation/Title";
+import Row from "./presentation/Row";
+import Spinner from "./presentation/Spinner";
+import Button from "./presentation/Button";
+import Container from "./presentation/Container";
 import { STATUSES } from "../constants/api";
 import { Item } from "../constants/Item";
 import { useDocumentTitle } from "../hooks/document";
