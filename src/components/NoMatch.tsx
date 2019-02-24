@@ -5,7 +5,7 @@ import Column from "./Column";
 import { useDocumentTitle } from "../hooks/document";
 
 export default function NoMatch() {
-  useDocumentTitle("Not Found");
+  useDocumentTitle("404 Not Found");
 
   return (
     <Column crossAxisAlignment="center">
