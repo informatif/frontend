@@ -8,7 +8,6 @@
     "url": "git+https://github.com/informatif/informatif.git"
   },
   "author": "Zhao Wei Liew <zhaoweiliew@gmail.com>",
-  "homepage": ".",
   "license": "MIT",
   "dependencies": {
     "react": "16.8.3",
