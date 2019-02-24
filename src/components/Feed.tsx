@@ -21,12 +21,59 @@ const List = styled.ul`
   padding: 0 8px;
 `;
 
-const ListItem = styled.li`
+const StyledListItem = styled.li`
   align-items: center;
   display: flex;
   min-height: 48px;
   padding: 4px 0;
 `;
+
+const ListItem = React.memo(
+  ({
+    link,
+    title,
+    author,
+    description,
+    points,
+    responseCount
+  }: {
+    link: string;
+    title: string;
+    author: string;
+    description: string;
+    points: number;
+    responseCount: number;
+  }) => (
+    <StyledListItem>
+      <ItemContent>
+        <Title>
+          <ItemLink href={link} title="Title">
+            {title} {description && `— ${description}`}
+          </ItemLink>
+        </Title>
+        <div>
+          <ItemSubtitle title="Author">{author}</ItemSubtitle>
+          {points != null && (
+            <>
+              <span> • </span>
+              <ItemSubtitle title="Points">
+                {points} <FaRegArrowAltCircleUp />
+              </ItemSubtitle>
+            </>
+          )}
+          {responseCount != null && (
+            <>
+              <span> • </span>
+              <ItemSubtitle title="Responses">
+                {responseCount} <FaRegCommentAlt />
+              </ItemSubtitle>
+            </>
+          )}
+        </div>
+      </ItemContent>
+    </StyledListItem>
+  )
+);
 
 const ItemContent = styled.div`
   display: flex;
@@ -74,38 +121,9 @@ export default function Feed({
         )}
       </Row>
       <List>
-        {items.map(
-          ({ link, title, points, responseCount, id, author, description }) => (
-            <ListItem key={id}>
-              <ItemContent>
-                <Title>
-                  <ItemLink href={link} title="Title">
-                    {title} {description && `— ${description}`}
-                  </ItemLink>
-                </Title>
-                <div>
-                  <ItemSubtitle title="Author">{author}</ItemSubtitle>
-                  {points != null && (
-                    <>
-                      <span> • </span>
-                      <ItemSubtitle title="Points">
-                        {points} <FaRegArrowAltCircleUp />
-                      </ItemSubtitle>
-                    </>
-                  )}
-                  {responseCount != null && (
-                    <>
-                      <span> • </span>
-                      <ItemSubtitle title="Responses">
-                        {responseCount} <FaRegCommentAlt />
-                      </ItemSubtitle>
-                    </>
-                  )}
-                </div>
-              </ItemContent>
-            </ListItem>
-          )
-        )}
+        {items.map(itemProps => (
+          <ListItem {...itemProps} key={itemProps.id} />
+        ))}
       </List>
       <Center>
         {status === STATUSES.loadingMore && <Spinner />}
