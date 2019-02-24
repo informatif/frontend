@@ -38,7 +38,7 @@ export function useApi(path: string) {
     dispatch({ type: actions.refresh });
     const newPage = 1;
     try {
-      const newItems = await load(path, newPage);
+      const newItems = await load({ path, page: newPage, bypassCache: true });
       dispatch({
         type: actions.refreshed,
         payload: { items: newItems, page: newPage }
@@ -54,7 +54,7 @@ export function useApi(path: string) {
     dispatch({ type: actions.loadMore });
     const newPage = state.page + 1;
     try {
-      const newItems = await load(path, newPage);
+      const newItems = await load({ path, page: newPage });
       dispatch({
         type: actions.loadedMore,
         payload: { items: newItems, page: newPage }
@@ -141,16 +141,27 @@ function reducer(state: State, action: Action) {
   }
 }
 
-async function load(path: string, page: number) {
+async function load({
+  path,
+  page,
+  bypassCache = false
+}: {
+  path: string;
+  page: number;
+  bypassCache?: boolean;
+}) {
   if (abortController) {
     abortController.abort();
   }
   abortController = new AbortController();
+
+  const options: RequestInit = {
+    signal: abortController.signal,
+    cache: bypassCache ? "reload" : "default"
+  };
   const res = await fetch(
     `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
-    {
-      signal: abortController.signal
-    }
+    options
   );
   return res.json();
 }
