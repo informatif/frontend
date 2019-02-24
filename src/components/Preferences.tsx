@@ -19,21 +19,19 @@ function TogglePref({
   value: boolean;
 }) {
   return (
-    <Column>
-      <Padding padding={{ top: "8px", bottom: "8px" }}>
-        <label htmlFor={id}>
-          <Title>{title}</Title>
-          <input
-            type="checkbox"
-            role="switch"
-            id={id}
-            onChange={handleChange}
-            checked={value}
-          />
-          <p>{description}</p>
-        </label>
-      </Padding>
-    </Column>
+    <Padding padding={{ top: "8px", bottom: "8px" }}>
+      <label htmlFor={id}>
+        <Title>{title}</Title>
+        <input
+          type="checkbox"
+          role="switch"
+          id={id}
+          onChange={handleChange}
+          checked={value}
+        />
+        <p>{description}</p>
+      </label>
+    </Padding>
   );
 }
 

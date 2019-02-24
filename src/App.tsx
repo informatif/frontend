@@ -22,32 +22,33 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Center>
-        <Title colored>
-          <h1>Informatif</h1>
-        </Title>
-      </Center>
-      <Suspense
-        fallback={
-          <Center>
-            <Spinner />
-          </Center>
-        }
-      >
-        <ErrorBoundary>
-          <Switch>
-            <Redirect exact from="/" to="/hn" />
-            <Route exact path="/hn" component={HackerNewsFeed} />
-            <Route exact path="/gh" component={GitHubFeed} />
-            <Route exact path="/so" component={StackOverflowFeed} />
-            <Route exact path="/reddit" component={RedditFeed} />
-            <Route exact path="/global" component={GlobalNewsFeed} />
-            <Route exact path="/prefs" component={Preferences} />
-            <Route component={NoMatch} />
-          </Switch>
-        </ErrorBoundary>
-      </Suspense>
-      <Margin margin="56px" />
+      <Margin margin={{ bottom: "56px" }}>
+        <Center>
+          <Title colored>
+            <h1>Informatif</h1>
+          </Title>
+        </Center>
+        <Suspense
+          fallback={
+            <Center>
+              <Spinner />
+            </Center>
+          }
+        >
+          <ErrorBoundary>
+            <Switch>
+              <Redirect exact from="/" to="/hn" />
+              <Route exact path="/hn" component={HackerNewsFeed} />
+              <Route exact path="/gh" component={GitHubFeed} />
+              <Route exact path="/so" component={StackOverflowFeed} />
+              <Route exact path="/reddit" component={RedditFeed} />
+              <Route exact path="/global" component={GlobalNewsFeed} />
+              <Route exact path="/prefs" component={Preferences} />
+              <Route component={NoMatch} />
+            </Switch>
+          </ErrorBoundary>
+        </Suspense>
+      </Margin>
       <Footer />
     </BrowserRouter>
   );
