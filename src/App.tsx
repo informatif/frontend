@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Title from "./components/Title";
 import Center from "./components/Center";
 import Footer from "./components/Footer";
-import Margin from "./components/Margin";
+import Container from "./components/Container";
 import Spinner from "./components/Spinner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import useDarkMode from "use-dark-mode";
@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Margin margin={{ bottom: "56px" }}>
+      <Container margin={{ bottom: "56px" }}>
         <Center>
           <Title colored>
             <h1>Informatif</h1>
@@ -48,7 +48,7 @@ export default function App() {
             </Switch>
           </ErrorBoundary>
         </Suspense>
-      </Margin>
+      </Container>
       <Footer />
     </BrowserRouter>
   );

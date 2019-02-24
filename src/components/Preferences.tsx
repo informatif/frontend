@@ -1,6 +1,6 @@
 import React from "react";
 import useDarkMode from "use-dark-mode";
-import Padding from "./Padding";
+import Container from "./Container";
 import Title from "./Title";
 import { useLeftHandedMode } from "../hooks/prefs";
 import Column from "./Column";
@@ -19,7 +19,7 @@ function TogglePref({
   value: boolean;
 }) {
   return (
-    <Padding padding={{ top: "8px", bottom: "8px" }}>
+    <Container padding={{ top: "8px", bottom: "8px" }}>
       <label htmlFor={id}>
         <Title>{title}</Title>
         <input
@@ -31,7 +31,7 @@ function TogglePref({
         />
         <p>{description}</p>
       </label>
-    </Padding>
+    </Container>
   );
 }
 
@@ -63,10 +63,10 @@ function LeftHandedModePref() {
 
 export default function Preferences() {
   return (
-    <Padding padding={{ left: "8px" }}>
+    <Container padding={{ left: "8px" }}>
       <Title>Preferences</Title>
       <NightModePref />
       <LeftHandedModePref />
-    </Padding>
+    </Container>
   );
 }

@@ -10,7 +10,7 @@ import Title from "./Title";
 import Row from "./Row";
 import Spinner from "./Spinner";
 import Button from "./Button";
-import Padding from "./Padding";
+import Container from "./Container";
 import { STATUSES } from "../constants/api";
 import { Item } from "../constants/Item";
 import { useDocumentTitle } from "../hooks/document";
@@ -62,9 +62,9 @@ export default function Feed({
   return (
     <>
       <Row>
-        <Padding padding={{ left: "8px", right: "8px" }}>
+        <Container padding={{ left: "8px", right: "8px" }}>
           <Title>{title}</Title>
-        </Padding>
+        </Container>
         {status === STATUSES.refreshing ? (
           <Spinner />
         ) : (
