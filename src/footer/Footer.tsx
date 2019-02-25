@@ -1,20 +1,20 @@
 import React, { ReactElement } from "react";
-import styled from "styled-components/macro";
 import {
-  FaStackOverflow,
+  FaCog,
+  FaGithub,
   FaHackerNews,
   FaNewspaper,
   FaReddit,
-  FaGithub,
-  FaCog
+  FaStackOverflow
 } from "react-icons/fa";
-import AppNavLink from "./AppNavLink";
-import { useLeftHandedMode, useDisplayedFeeds } from "../preferences/hooks";
+import styled from "styled-components/macro";
 import {
+  DEFAULT_DISPLAYED_FEED,
   DEFAULT_LEFT_HANDED_MODE,
-  FEED_ID_TO_TITLE,
-  DEFAULT_DISPLAYED_FEED
+  FEED_ID_TO_TITLE
 } from "../preferences/constants";
+import { useDisplayedFeeds, useLeftHandedMode } from "../preferences/hooks";
+import AppNavLink from "./AppNavLink";
 
 const StyledFooter = styled.footer`
   align-items: center;

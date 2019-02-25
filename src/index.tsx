@@ -1,7 +1,7 @@
 import React from "react";
 import { unstable_createRoot } from "react-dom";
-import "./index.css";
 import App from "./App";
+import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 unstable_createRoot(document.getElementById("root")).render(<App />);

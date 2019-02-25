@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components/macro";
 import { FaSpinner } from "react-icons/fa";
+import styled, { keyframes } from "styled-components/macro";
 
 const spin = keyframes`
   from {

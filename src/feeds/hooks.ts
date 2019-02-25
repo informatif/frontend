@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { STATUSES } from "../constants/api";
 import { Item } from "../constants/Item";
 

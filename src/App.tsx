@@ -1,13 +1,13 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Title from "./presentation/Title";
-import Center from "./presentation/Center";
+import useDarkMode from "use-dark-mode";
+import ErrorBoundary from "./ErrorBoundary";
 import Footer from "./footer/Footer";
+import { DEFAULT_NIGHT_MODE } from "./preferences/constants";
+import Center from "./presentation/Center";
 import Container from "./presentation/Container";
 import Spinner from "./presentation/Spinner";
-import ErrorBoundary from "./ErrorBoundary";
-import useDarkMode from "use-dark-mode";
-import { DEFAULT_NIGHT_MODE } from "./preferences/constants";
+import Title from "./presentation/Title";
 
 const HackerNewsFeed = lazy(() => import("./feeds/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./feeds/GitHubFeed"));
