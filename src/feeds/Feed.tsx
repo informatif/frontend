@@ -5,8 +5,7 @@ import {
   FaSyncAlt
 } from "react-icons/fa";
 import styled from "styled-components/macro";
-import { STATUSES } from "../constants/api";
-import { Item } from "../constants/Item";
+import { Status, Item } from "./constants";
 import { useDocumentTitle } from "../hooks/document";
 import Button from "../presentation/Button";
 import Center from "../presentation/Center";
@@ -91,6 +90,31 @@ const ItemSubtitle = styled.span`
   font-size: 0.8rem;
 `;
 
+const Header = memo(
+  ({
+    title,
+    status,
+    handleRefresh
+  }: {
+    title: string;
+    status: Status;
+    handleRefresh: () => void;
+  }) => (
+    <Row>
+      <Container padding={{ left: "8px", right: "8px" }}>
+        <Title>{title}</Title>
+      </Container>
+      {status === Status.refreshing ? (
+        <Spinner />
+      ) : (
+        <Button onClick={handleRefresh} title="Refresh">
+          <FaSyncAlt />
+        </Button>
+      )}
+    </Row>
+  )
+);
+
 export default function Feed({
   status,
   items,
@@ -98,7 +122,7 @@ export default function Feed({
   onRefresh,
   onLoadMore
 }: {
-  status: string;
+  status: Status;
   items: Item[];
   title: string;
   onRefresh: () => void;
@@ -108,26 +132,15 @@ export default function Feed({
 
   return (
     <>
-      <Row>
-        <Container padding={{ left: "8px", right: "8px" }}>
-          <Title>{title}</Title>
-        </Container>
-        {status === STATUSES.refreshing ? (
-          <Spinner />
-        ) : (
-          <Button onClick={onRefresh} title="Refresh">
-            <FaSyncAlt />
-          </Button>
-        )}
-      </Row>
+      <Header title={title} status={status} handleRefresh={onRefresh} />
       <List>
         {items.map(itemProps => (
           <ListItem {...itemProps} key={itemProps.id} />
         ))}
       </List>
       <Center>
-        {status === STATUSES.loadingMore && <Spinner />}
-        {onLoadMore && status === STATUSES.idle && (
+        {status === Status.loadingMore && <Spinner />}
+        {onLoadMore && status === Status.idling && (
           <Button onClick={onLoadMore}>Load more</Button>
         )}
       </Center>

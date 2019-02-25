@@ -1,28 +1,27 @@
 import { useCallback, useEffect, useReducer } from "react";
-import { STATUSES } from "../constants/api";
-import { Item } from "../constants/Item";
+import { Status, Item } from "./constants";
 
 interface State {
-  status: string;
+  status: Status;
   items: Item[];
   page: number;
 }
 
 interface Action {
-  type: string;
+  type: ActionType;
   payload?: {
     items: Item[];
     page: number;
   };
 }
 
-const actions = {
-  refresh: "refresh",
-  loadMore: "loadMore",
-  refreshed: "refreshed",
-  loadedMore: "loadedMore",
-  idle: "idle"
-};
+enum ActionType {
+  refresh,
+  loadMore,
+  refreshed,
+  loadedMore,
+  idle
+}
 
 const abortErrorName = "AbortError";
 
@@ -30,38 +29,38 @@ let abortController: AbortController | null = null;
 
 export function useApi(path: string) {
   const [state, dispatch] = useReducer(reducer, {
-    status: STATUSES.refreshing,
+    status: Status.refreshing,
     items: [],
     page: 1
   });
   const refresh = useCallback(async () => {
-    dispatch({ type: actions.refresh });
+    dispatch({ type: ActionType.refresh });
     const newPage = 1;
     try {
       const newItems = await load({ path, page: newPage, bypassCache: true });
       dispatch({
-        type: actions.refreshed,
+        type: ActionType.refreshed,
         payload: { items: newItems, page: newPage }
       });
     } catch (err) {
       if (err.name !== abortErrorName) {
-        dispatch({ type: actions.idle });
+        dispatch({ type: ActionType.idle });
         console.error(err);
       }
     }
   }, [dispatch, path]);
   const loadMore = useCallback(async () => {
-    dispatch({ type: actions.loadMore });
+    dispatch({ type: ActionType.loadMore });
     const newPage = state.page + 1;
     try {
       const newItems = await load({ path, page: newPage });
       dispatch({
-        type: actions.loadedMore,
+        type: ActionType.loadedMore,
         payload: { items: newItems, page: newPage }
       });
     } catch (err) {
       if (err.name !== abortErrorName) {
-        dispatch({ type: actions.idle });
+        dispatch({ type: ActionType.idle });
         console.error(err);
       }
     }
@@ -88,34 +87,34 @@ export function useApi(path: string) {
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
-    case actions.refresh:
+    case ActionType.refresh:
       return {
         ...state,
-        status: STATUSES.refreshing
+        status: Status.refreshing
       };
-    case actions.loadMore:
+    case ActionType.loadMore:
       return {
         ...state,
-        status: STATUSES.loadingMore
+        status: Status.loadingMore
       };
-    case actions.refreshed:
+    case ActionType.refreshed:
       if (!action.payload) {
         return {
           ...state,
-          status: STATUSES.idle
+          status: Status.idling
         };
       }
       return {
         ...state,
-        status: STATUSES.idle,
+        status: Status.idling,
         items: action.payload.items,
         page: action.payload.page
       };
-    case actions.loadedMore:
+    case ActionType.loadedMore:
       if (!action.payload) {
         return {
           ...state,
-          status: STATUSES.idle
+          status: Status.idling
         };
       }
       // De-duplicate the arrays
@@ -127,14 +126,14 @@ function reducer(state: State, action: Action) {
       }
       return {
         ...state,
-        status: STATUSES.idle,
+        status: Status.idling,
         items: reconciledItems,
         page: action.payload.page
       };
-    case actions.idle:
+    case ActionType.idle:
       return {
         ...state,
-        status: STATUSES.idle
+        status: Status.idling
       };
     default:
       return state;
