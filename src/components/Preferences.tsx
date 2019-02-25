@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import useDarkMode from "use-dark-mode";
 import Container from "./presentation/Container";
 import Title from "./presentation/Title";
@@ -9,15 +9,20 @@ import {
   FEED_ID_TO_TITLE,
   DEFAULT_DISPLAYED_FEED
 } from "../constants/prefs";
+import { FaMoon, FaTv, FaHandHolding } from "react-icons/fa";
+import { IconType } from "react-icons/lib/iconBase";
+import Row from "./presentation/Row";
 
 function TogglePref({
   id,
+  Icon,
   title,
   description,
   handleChange,
   checked
 }: {
   id: string;
+  Icon: IconType;
   title: string;
   description: string;
   handleChange: () => void;
@@ -26,25 +31,33 @@ function TogglePref({
   return (
     <Container padding={{ top: "8px", bottom: "8px" }}>
       <label htmlFor={id}>
-        <Title>{title}</Title>
-        <input
-          type="checkbox"
-          role="switch"
-          id={id}
-          onChange={handleChange}
-          checked={checked}
-        />
-        <p>{description}</p>
+        <Row>
+          <Container padding={{ right: "8px" }}>
+            <Icon />
+          </Container>
+          <div>
+            <Title colored>{title}</Title>
+            <input
+              type="checkbox"
+              role="switch"
+              id={id}
+              onChange={handleChange}
+              checked={checked}
+            />
+            <p>{description}</p>
+          </div>
+        </Row>
       </label>
     </Container>
   );
 }
 
 function ListPref({
+  Icon,
   title,
   items
 }: {
-  id: string;
+  Icon: IconType;
   title: string;
   items: {
     id: string;
@@ -55,19 +68,26 @@ function ListPref({
 }) {
   return (
     <Container padding={{ top: "8px", bottom: "8px" }}>
-      <Title>{title}</Title>
-      {items.map(({ id, label, checked, handleChange }) => (
-        <Container padding={{ top: "2px", bottom: "2px" }} key={id}>
-          <label htmlFor={id}>{label}</label>
-          <input
-            type="checkbox"
-            role="switch"
-            id={id}
-            onChange={handleChange}
-            checked={checked}
-          />
+      <Row>
+        <Container padding={{ right: "8px" }}>
+          <Icon />
         </Container>
-      ))}
+        <div>
+          <Title colored>{title}</Title>
+          {items.map(({ id, label, checked, handleChange }) => (
+            <Container padding={{ top: "2px", bottom: "2px" }} key={id}>
+              <label htmlFor={id}>{label}</label>
+              <input
+                type="checkbox"
+                role="switch"
+                id={id}
+                onChange={handleChange}
+                checked={checked}
+              />
+            </Container>
+          ))}
+        </div>
+      </Row>
     </Container>
   );
 }
@@ -77,6 +97,7 @@ function NightModePref() {
   return (
     <TogglePref
       id="night-mode"
+      Icon={FaMoon}
       title="Night mode"
       description="Optimize color scheme for viewing in the dark"
       handleChange={toggle}
@@ -90,6 +111,7 @@ function LeftHandedModePref() {
   return (
     <TogglePref
       id="left-handed-mode"
+      Icon={FaHandHolding}
       title="Left-handed mode"
       description="Improve accessibility for left-handed use"
       handleChange={() => setEnabled(prevEnabled => !prevEnabled)}
@@ -111,9 +133,7 @@ function DisplayedFeedsPref() {
         setDisplayed((prevDisplayed: boolean) => !prevDisplayed)
     };
   });
-  return (
-    <ListPref id="displayed-feeds" title="Displayed feeds" items={feeds} />
-  );
+  return <ListPref Icon={FaTv} title="Displayed feeds" items={feeds} />;
 }
 
 export default function Preferences() {
