@@ -17,12 +17,14 @@ body {
 .light-mode {
   --background-color: #fefefe;
   --primary-color: #1976d2;
+  --secondary-color: #ef5350;
   --text-color: #222;
 }
 
 .dark-mode {
   --background-color: #222;
   --primary-color: #63a4ff;
+  --secondary-color: #ff867c;
   --text-color: #ddd;
 }
 

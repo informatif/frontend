@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from "react";
-import { FaHandHolding, FaMoon, FaTv } from "react-icons/fa";
+import { FaHandHolding, FaInfo, FaMoon, FaTv } from "react-icons/fa";
 import { IconType } from "react-icons/lib/iconBase";
 import useDarkMode from "use-dark-mode";
 import Container from "../presentation/Container";
@@ -12,6 +12,7 @@ import {
   FEED_ID_TO_TITLE
 } from "./constants";
 import { useDisplayedFeeds, useLeftHandedMode } from "./hooks";
+import A from "../presentation/A";
 
 const TogglePref = memo(
   ({
@@ -36,14 +37,16 @@ const TogglePref = memo(
             <Icon />
           </Container>
           <div>
-            <Title colored>{title}</Title>
-            <input
-              type="checkbox"
-              role="switch"
-              id={id}
-              onChange={handleChange}
-              checked={checked}
-            />
+            <Container padding={{ bottom: "4px" }}>
+              <Title colored>{title}</Title>
+              <input
+                type="checkbox"
+                role="switch"
+                id={id}
+                onChange={handleChange}
+                checked={checked}
+              />
+            </Container>
             <p>{description}</p>
           </div>
         </Row>
@@ -73,9 +76,11 @@ const ListPref = memo(
           <Icon />
         </Container>
         <div>
-          <Title colored>{title}</Title>
+          <Container padding={{ bottom: "4px" }}>
+            <Title colored>{title}</Title>
+          </Container>
           {items.map(({ id, label, checked, handleChange }) => (
-            <Container padding={{ top: "2px", bottom: "2px" }} key={id}>
+            <Container padding={{ bottom: "2px" }} key={id}>
               <label htmlFor={id}>{label}</label>
               <input
                 type="checkbox"
@@ -143,6 +148,28 @@ function DisplayedFeedsPref() {
   return <ListPref Icon={FaTv} title="Displayed feeds" items={items} />;
 }
 
+const AboutPref = memo(() => (
+  <Container padding={{ top: "8px", bottom: "8px" }}>
+    <Row>
+      <Container padding={{ right: "8px" }}>
+        <FaInfo />
+      </Container>
+      <div>
+        <Container padding={{ bottom: "4px" }}>
+          <Title colored>About Informatif</Title>
+        </Container>
+        <p>Glanceable headlines for the media sources you care about.</p>
+        <div>
+          More links:{" "}
+          <A href="https://github.com/informatif/informatif">GitHub Repo</A>
+          {", "}
+          <A href="https://zwliew.xyz">Myself</A>
+        </div>
+      </div>
+    </Row>
+  </Container>
+));
+
 export default function Preferences() {
   return (
     <Container padding={{ left: "8px" }}>
@@ -150,6 +177,7 @@ export default function Preferences() {
       <NightModePref />
       <LeftHandedModePref />
       <DisplayedFeedsPref />
+      <AboutPref />
     </Container>
   );
 }
