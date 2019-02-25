@@ -11,3 +11,7 @@ Glanceable headlines for the media sources you care about.
 - Stack Overflow
 - Reddit
 - Global News
+
+## Other links
+
+[Informatif API](https://github.com/informatif/informatif-api)
