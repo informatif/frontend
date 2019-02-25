@@ -67,7 +67,7 @@ const ListPrefItem = memo(
     checked: boolean;
     handleChange: () => void;
   }) => (
-    <Container padding={{ bottom: "2px" }} key={id}>
+    <Container padding={{ bottom: "2px" }}>
       <label htmlFor={id}>{label}</label>
       <input
         type="checkbox"
@@ -105,6 +105,7 @@ const ListPref = ({
         </Container>
         {items.map(({ id, label, checked, handleChange }) => (
           <ListPrefItem
+            key={id}
             id={id}
             label={label}
             checked={checked}
