@@ -1,5 +1,5 @@
 import createPersistedState from "use-persisted-state";
-import { FEED_ID_TO_TITLE } from "../constants/prefs";
+import { FEED_ID_TO_TITLE } from "./constants";
 
 export const useLeftHandedMode = createPersistedState("left-handed-mode");
 

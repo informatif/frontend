@@ -1,6 +1,6 @@
 import React from "react";
 import Feed from "./Feed";
-import { useApi } from "../hooks/api";
+import { useApi } from "./hooks";
 
 export default function RedditFeed() {
   const { status, items, refresh } = useApi("reddit");

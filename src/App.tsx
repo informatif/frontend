@@ -1,21 +1,21 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Title from "./components/presentation/Title";
-import Center from "./components/presentation/Center";
-import Footer from "./components/Footer";
-import Container from "./components/presentation/Container";
-import Spinner from "./components/presentation/Spinner";
-import ErrorBoundary from "./components/ErrorBoundary";
+import Title from "./presentation/Title";
+import Center from "./presentation/Center";
+import Footer from "./footer/Footer";
+import Container from "./presentation/Container";
+import Spinner from "./presentation/Spinner";
+import ErrorBoundary from "./ErrorBoundary";
 import useDarkMode from "use-dark-mode";
-import { DEFAULT_NIGHT_MODE } from "./constants/prefs";
+import { DEFAULT_NIGHT_MODE } from "./preferences/constants";
 
-const HackerNewsFeed = lazy(() => import("./components/HackerNewsFeed"));
-const GitHubFeed = lazy(() => import("./components/GitHubFeed"));
-const StackOverflowFeed = lazy(() => import("./components/StackOverflowFeed"));
-const RedditFeed = lazy(() => import("./components/RedditFeed"));
-const GlobalNewsFeed = lazy(() => import("./components/GlobalNewsFeed"));
-const Preferences = lazy(() => import("./components/Preferences"));
-const NoMatch = lazy(() => import("./components/NoMatch"));
+const HackerNewsFeed = lazy(() => import("./feeds/HackerNewsFeed"));
+const GitHubFeed = lazy(() => import("./feeds/GitHubFeed"));
+const StackOverflowFeed = lazy(() => import("./feeds/StackOverflowFeed"));
+const RedditFeed = lazy(() => import("./feeds/RedditFeed"));
+const GlobalNewsFeed = lazy(() => import("./feeds/GlobalNewsFeed"));
+const Preferences = lazy(() => import("./preferences/Preferences"));
+const NotFound = lazy(() => import("./NotFound"));
 
 export default function App() {
   // TODO: Query dark mode directly in components that use it
@@ -45,7 +45,7 @@ export default function App() {
               <Route exact path="/reddit" component={RedditFeed} />
               <Route exact path="/global" component={GlobalNewsFeed} />
               <Route exact path="/prefs" component={Preferences} />
-              <Route component={NoMatch} />
+              <Route component={NotFound} />
             </Switch>
           </ErrorBoundary>
         </Suspense>

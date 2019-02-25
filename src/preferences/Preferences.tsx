@@ -1,17 +1,17 @@
 import React, { memo, useCallback } from "react";
 import useDarkMode from "use-dark-mode";
-import Container from "./presentation/Container";
-import Title from "./presentation/Title";
-import { useLeftHandedMode, useDisplayedFeeds } from "../hooks/prefs";
+import Container from "../components/presentation/Container";
+import Title from "../components/presentation/Title";
+import { useLeftHandedMode, useDisplayedFeeds } from "./hooks";
 import {
   DEFAULT_NIGHT_MODE,
   DEFAULT_LEFT_HANDED_MODE,
   FEED_ID_TO_TITLE,
   DEFAULT_DISPLAYED_FEED
-} from "../constants/prefs";
+} from "./constants";
 import { FaMoon, FaTv, FaHandHolding } from "react-icons/fa";
 import { IconType } from "react-icons/lib/iconBase";
-import Row from "./presentation/Row";
+import Row from "../components/presentation/Row";
 
 const TogglePref = memo(
   ({

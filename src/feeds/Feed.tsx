@@ -1,19 +1,19 @@
 import React, { memo } from "react";
-import styled from "styled-components/macro";
 import {
+  FaRegArrowAltCircleUp,
   FaRegCommentAlt,
-  FaSyncAlt,
-  FaRegArrowAltCircleUp
+  FaSyncAlt
 } from "react-icons/fa";
-import Center from "./presentation/Center";
-import Title from "./presentation/Title";
-import Row from "./presentation/Row";
-import Spinner from "./presentation/Spinner";
-import Button from "./presentation/Button";
-import Container from "./presentation/Container";
+import styled from "styled-components/macro";
 import { STATUSES } from "../constants/api";
 import { Item } from "../constants/Item";
 import { useDocumentTitle } from "../hooks/document";
+import Button from "../presentation/Button";
+import Center from "../presentation/Center";
+import Container from "../presentation/Container";
+import Row from "../presentation/Row";
+import Spinner from "../presentation/Spinner";
+import Title from "../presentation/Title";
 
 const List = styled.ul`
   list-style-type: none;

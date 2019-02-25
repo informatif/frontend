@@ -9,12 +9,12 @@ import {
   FaCog
 } from "react-icons/fa";
 import AppNavLink from "./AppNavLink";
-import { useLeftHandedMode, useDisplayedFeeds } from "../hooks/prefs";
+import { useLeftHandedMode, useDisplayedFeeds } from "../preferences/hooks";
 import {
   DEFAULT_LEFT_HANDED_MODE,
   FEED_ID_TO_TITLE,
   DEFAULT_DISPLAYED_FEED
-} from "../constants/prefs";
+} from "../preferences/constants";
 
 const StyledFooter = styled.footer`
   align-items: center;
