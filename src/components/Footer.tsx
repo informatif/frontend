@@ -9,7 +9,7 @@ import {
   FaCog
 } from "react-icons/fa";
 import AppNavLink from "./AppNavLink";
-import { useLeftHandedMode, useDisplayedFeed } from "../hooks/prefs";
+import { useLeftHandedMode, useDisplayedFeeds } from "../hooks/prefs";
 import {
   DEFAULT_LEFT_HANDED_MODE,
   FEED_ID_TO_TITLE,
@@ -55,7 +55,7 @@ export default function Footer() {
       {!leftHandedModeEnabled && <PrefsLink />}
       <div>
         {Object.keys(FEED_ID_TO_TITLE).map(id => {
-          const [displayed] = useDisplayedFeed(id)(DEFAULT_DISPLAYED_FEED);
+          const [displayed] = useDisplayedFeeds[id](DEFAULT_DISPLAYED_FEED);
           return (
             displayed && (
               <AppNavLink to={`/${id}`} title={FEED_ID_TO_TITLE[id]} key={id}>

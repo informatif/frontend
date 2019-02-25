@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components/macro";
 import {
   FaRegCommentAlt,
@@ -28,7 +28,7 @@ const StyledListItem = styled.li`
   padding: 4px 0;
 `;
 
-const ListItem = React.memo(
+const ListItem = memo(
   ({
     link,
     title,

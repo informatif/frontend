@@ -1,8 +1,8 @@
-import React, { lazy } from "react";
+import React, { memo, useCallback } from "react";
 import useDarkMode from "use-dark-mode";
 import Container from "./presentation/Container";
 import Title from "./presentation/Title";
-import { useLeftHandedMode, useDisplayedFeed } from "../hooks/prefs";
+import { useLeftHandedMode, useDisplayedFeeds } from "../hooks/prefs";
 import {
   DEFAULT_NIGHT_MODE,
   DEFAULT_LEFT_HANDED_MODE,
@@ -13,22 +13,22 @@ import { FaMoon, FaTv, FaHandHolding } from "react-icons/fa";
 import { IconType } from "react-icons/lib/iconBase";
 import Row from "./presentation/Row";
 
-function TogglePref({
-  id,
-  Icon,
-  title,
-  description,
-  handleChange,
-  checked
-}: {
-  id: string;
-  Icon: IconType;
-  title: string;
-  description: string;
-  handleChange: () => void;
-  checked: boolean;
-}) {
-  return (
+const TogglePref = memo(
+  ({
+    id,
+    Icon,
+    title,
+    description,
+    handleChange,
+    checked
+  }: {
+    id: string;
+    Icon: IconType;
+    title: string;
+    description: string;
+    handleChange: () => void;
+    checked: boolean;
+  }) => (
     <Container padding={{ top: "8px", bottom: "8px" }}>
       <label htmlFor={id}>
         <Row>
@@ -49,24 +49,24 @@ function TogglePref({
         </Row>
       </label>
     </Container>
-  );
-}
+  )
+);
 
-function ListPref({
-  Icon,
-  title,
-  items
-}: {
-  Icon: IconType;
-  title: string;
-  items: {
-    id: string;
-    label: string;
-    checked: boolean;
-    handleChange: () => void;
-  }[];
-}) {
-  return (
+const ListPref = memo(
+  ({
+    Icon,
+    title,
+    items
+  }: {
+    Icon: IconType;
+    title: string;
+    items: {
+      id: string;
+      label: string;
+      checked: boolean;
+      handleChange: () => void;
+    }[];
+  }) => (
     <Container padding={{ top: "8px", bottom: "8px" }}>
       <Row>
         <Container padding={{ right: "8px" }}>
@@ -89,8 +89,8 @@ function ListPref({
         </div>
       </Row>
     </Container>
-  );
-}
+  )
+);
 
 function NightModePref() {
   const { value, toggle } = useDarkMode(DEFAULT_NIGHT_MODE);
@@ -108,32 +108,39 @@ function NightModePref() {
 
 function LeftHandedModePref() {
   const [enabled, setEnabled] = useLeftHandedMode(DEFAULT_LEFT_HANDED_MODE);
+  const handleChange = useCallback(
+    () => setEnabled(prevEnabled => !prevEnabled),
+    [setEnabled]
+  );
   return (
     <TogglePref
       id="left-handed-mode"
       Icon={FaHandHolding}
       title="Left-handed mode"
       description="Improve accessibility for left-handed use"
-      handleChange={() => setEnabled(prevEnabled => !prevEnabled)}
+      handleChange={handleChange}
       checked={enabled}
     />
   );
 }
 
 function DisplayedFeedsPref() {
-  const feeds = Object.keys(FEED_ID_TO_TITLE).map((feedId: string) => {
-    const [displayed, setDisplayed] = useDisplayedFeed(feedId)(
+  const items = Object.keys(FEED_ID_TO_TITLE).map(id => {
+    const [displayed, setDisplayed] = useDisplayedFeeds[id](
       DEFAULT_DISPLAYED_FEED
     );
+    const handleChange = useCallback(
+      () => setDisplayed(prevDisplayed => !prevDisplayed),
+      [setDisplayed]
+    );
     return {
-      id: feedId,
-      label: FEED_ID_TO_TITLE[feedId],
+      id,
+      label: FEED_ID_TO_TITLE[id],
       checked: displayed,
-      handleChange: () =>
-        setDisplayed((prevDisplayed: boolean) => !prevDisplayed)
+      handleChange
     };
   });
-  return <ListPref Icon={FaTv} title="Displayed feeds" items={feeds} />;
+  return <ListPref Icon={FaTv} title="Displayed feeds" items={items} />;
 }
 
 export default function Preferences() {
