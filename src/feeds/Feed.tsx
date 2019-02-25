@@ -78,6 +78,9 @@ const ItemContent = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow-wrap: break-word;
+  width: 100%;
+  word-wrap: break-word;
 `;
 
 const ItemLink = styled.a`
