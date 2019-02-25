@@ -25,8 +25,8 @@ export default function App() {
     <BrowserRouter>
       <Container margin={{ bottom: "56px" }}>
         <Center>
-          <Title colored>
-            <h1>Informatif</h1>
+          <Title colored size="1.5rem">
+            Informatif
           </Title>
         </Center>
         <Suspense

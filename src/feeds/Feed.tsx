@@ -74,7 +74,7 @@ const ListItem = memo(
   )
 );
 
-const ItemContent = styled.div`
+const ItemContent = styled.article`
   display: flex;
   flex-direction: column;
   flex-grow: 1;

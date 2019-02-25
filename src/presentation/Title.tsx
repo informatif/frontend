@@ -1,7 +1,10 @@
 import styled from "styled-components/macro";
 
-export default styled.span`
+type Props = { colored?: boolean; size?: string };
+
+export default styled.h1`
+  color: ${({ colored }: Props) => colored && "var(--primary-color)"};
+  display: inline-block;
   font-family: Bitter, sans-serif;
-  color: ${({ colored }: { colored?: boolean }) =>
-    colored && "var(--primary-color)"};
+  font-size: ${({ size }: Props) => size};
 `;
