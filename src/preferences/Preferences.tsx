@@ -55,46 +55,65 @@ const TogglePref = memo(
   )
 );
 
-const ListPref = memo(
+const ListPrefItem = memo(
   ({
-    Icon,
-    title,
-    items
+    id,
+    label,
+    checked,
+    handleChange
   }: {
-    Icon: IconType;
-    title: string;
-    items: {
-      id: string;
-      label: string;
-      checked: boolean;
-      handleChange: () => void;
-    }[];
+    id: string;
+    label: string;
+    checked: boolean;
+    handleChange: () => void;
   }) => (
-    <Container padding={{ top: "8px", bottom: "8px" }}>
-      <Row>
-        <Container padding={{ right: "8px" }}>
-          <Icon />
-        </Container>
-        <div>
-          <Container padding={{ bottom: "4px" }}>
-            <Title colored>{title}</Title>
-          </Container>
-          {items.map(({ id, label, checked, handleChange }) => (
-            <Container padding={{ bottom: "2px" }} key={id}>
-              <label htmlFor={id}>{label}</label>
-              <input
-                type="checkbox"
-                role="switch"
-                id={id}
-                onChange={handleChange}
-                checked={checked}
-              />
-            </Container>
-          ))}
-        </div>
-      </Row>
+    <Container padding={{ bottom: "2px" }} key={id}>
+      <label htmlFor={id}>{label}</label>
+      <input
+        type="checkbox"
+        role="switch"
+        id={id}
+        onChange={handleChange}
+        checked={checked}
+      />
     </Container>
   )
+);
+
+const ListPref = ({
+  Icon,
+  title,
+  items
+}: {
+  Icon: IconType;
+  title: string;
+  items: {
+    id: string;
+    label: string;
+    checked: boolean;
+    handleChange: () => void;
+  }[];
+}) => (
+  <Container padding={{ top: "8px", bottom: "8px" }}>
+    <Row>
+      <Container padding={{ right: "8px" }}>
+        <Icon />
+      </Container>
+      <div>
+        <Container padding={{ bottom: "4px" }}>
+          <Title colored>{title}</Title>
+        </Container>
+        {items.map(({ id, label, checked, handleChange }) => (
+          <ListPrefItem
+            id={id}
+            label={label}
+            checked={checked}
+            handleChange={handleChange}
+          />
+        ))}
+      </div>
+    </Row>
+  </Container>
 );
 
 function NightModePref() {
