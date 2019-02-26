@@ -6,6 +6,8 @@ export enum Status {
 
 export interface Item {
   link: string;
+  altLink: string;
+  altLinkName: string;
   title: string;
   points: number;
   responseCount: number;

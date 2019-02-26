@@ -13,6 +13,7 @@ import Container from "../presentation/Container";
 import Row from "../presentation/Row";
 import Spinner from "../presentation/Spinner";
 import Title from "../presentation/Title";
+import A from "../presentation/A";
 
 const List = styled.ul`
   list-style-type: none;
@@ -30,6 +31,8 @@ const StyledListItem = styled.li`
 const ListItem = memo(
   ({
     link,
+    altLink,
+    altLinkName,
     title,
     author,
     description,
@@ -37,6 +40,8 @@ const ListItem = memo(
     responseCount
   }: {
     link: string;
+    altLink: string;
+    altLinkName: string;
     title: string;
     author: string;
     description: string;
@@ -65,6 +70,14 @@ const ListItem = memo(
               <span> • </span>
               <ItemSubtitle title="Responses">
                 {responseCount} <FaRegCommentAlt />
+              </ItemSubtitle>
+            </>
+          )}
+          {altLink != null && (
+            <>
+              <span> • </span>
+              <ItemSubtitle title="Alternative link">
+                <A href={altLink}>Read with {altLinkName}</A>
               </ItemSubtitle>
             </>
           )}
