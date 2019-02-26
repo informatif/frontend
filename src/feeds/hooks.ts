@@ -118,7 +118,7 @@ function reducer(state: State, action: Action) {
         };
       }
       // De-duplicate the arrays
-      const reconciledItems = state.items;
+      const reconciledItems = [...state.items];
       for (let item of action.payload.items) {
         if (!state.items.find(el => el.id === item.id)) {
           reconciledItems.push(item);
