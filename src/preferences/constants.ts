@@ -7,6 +7,7 @@ export const FEED_ID_TO_TITLE: {
   hn: "Hacker News",
   gh: "GitHub",
   so: "Stack Overflow",
+  medium: "Medium",
   reddit: "Reddit",
   global: "Global News"
 };

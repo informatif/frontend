@@ -5,7 +5,8 @@ import {
   FaHackerNews,
   FaNewspaper,
   FaReddit,
-  FaStackOverflow
+  FaStackOverflow,
+  FaMedium
 } from "react-icons/fa";
 import styled from "styled-components/macro";
 import {
@@ -44,7 +45,8 @@ const feedIdToIcon: {
   gh: <FaGithub />,
   so: <FaStackOverflow />,
   reddit: <FaReddit />,
-  global: <FaNewspaper />
+  global: <FaNewspaper />,
+  medium: <FaMedium />
 };
 
 export default function Footer() {

@@ -12,6 +12,7 @@ import Title from "./presentation/Title";
 const HackerNewsFeed = lazy(() => import("./feeds/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./feeds/GitHubFeed"));
 const StackOverflowFeed = lazy(() => import("./feeds/StackOverflowFeed"));
+const MediumFeed = lazy(() => import("./feeds/MediumFeed"));
 const RedditFeed = lazy(() => import("./feeds/RedditFeed"));
 const GlobalNewsFeed = lazy(() => import("./feeds/GlobalNewsFeed"));
 const Preferences = lazy(() => import("./preferences/Preferences"));
@@ -42,6 +43,7 @@ export default function App() {
               <Route exact path="/hn" component={HackerNewsFeed} />
               <Route exact path="/gh" component={GitHubFeed} />
               <Route exact path="/so" component={StackOverflowFeed} />
+              <Route exact path="/medium" component={MediumFeed} />
               <Route exact path="/reddit" component={RedditFeed} />
               <Route exact path="/global" component={GlobalNewsFeed} />
               <Route exact path="/prefs" component={Preferences} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { FEED_ID_TO_TITLE } from "../preferences/constants";
 import Feed from "./Feed";
 import { useApi } from "./hooks";
 
@@ -7,7 +8,7 @@ export default function GlobalNewsFeed() {
 
   return (
     <Feed
-      title="Global News"
+      title={FEED_ID_TO_TITLE.global}
       status={status}
       items={items}
       onRefresh={refresh}

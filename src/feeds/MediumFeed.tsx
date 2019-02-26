@@ -3,12 +3,12 @@ import { FEED_ID_TO_TITLE } from "../preferences/constants";
 import Feed from "./Feed";
 import { useApi } from "./hooks";
 
-export default function GitHubFeed() {
-  const { status, items, refresh } = useApi("gh");
+export default function MediumFeed() {
+  const { status, items, refresh } = useApi("medium");
 
   return (
     <Feed
-      title={FEED_ID_TO_TITLE.gh}
+      title={FEED_ID_TO_TITLE.medium}
       status={status}
       items={items}
       onRefresh={refresh}
