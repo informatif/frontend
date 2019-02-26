@@ -118,9 +118,15 @@ function reducer(state: State, action: Action) {
         };
       }
       // De-duplicate the arrays
-      const reconciledItems = [...state.items];
+      const reconciledItems = [];
+      const storedIds = new Set();
+      for (let item of state.items) {
+        reconciledItems.push(item);
+        storedIds.add(item.id);
+      }
       for (let item of action.payload.items) {
-        if (!state.items.find(el => el.id === item.id)) {
+        if (!storedIds.has(item.id)) {
+          // Assume that there cannot be any duplicates within a page
           reconciledItems.push(item);
         }
       }
