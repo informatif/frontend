@@ -165,7 +165,7 @@ async function load({
     cache: bypassCache ? "reload" : "default"
   };
   const res = await fetch(
-    `https://informatif-api.herokuapp.com/api/v1/${path}?page=${page}`,
+    `https://informatif-api.now.sh/api/v1/${path}?page=${page}`,
     options
   );
   return res.json();
