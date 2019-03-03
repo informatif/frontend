@@ -4,14 +4,13 @@ import Feed from "./Feed";
 import { useApi } from "./hooks";
 
 export default function GlobalNewsFeed() {
-  const { status, items, refresh, loadMore } = useApi("global");
+  const { status, items, loadMore } = useApi("global");
 
   return (
     <Feed
       title={FEED_ID_TO_TITLE.global}
       status={status}
       items={items}
-      onRefresh={refresh}
       onLoadMore={loadMore}
     />
   );

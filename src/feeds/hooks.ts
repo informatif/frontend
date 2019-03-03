@@ -37,7 +37,7 @@ export function useApi(path: string) {
     dispatch({ type: ActionType.refresh });
     const newPage = 1;
     try {
-      const newItems = await load({ path, page: newPage, bypassCache: true });
+      const newItems = await load({ path, page: newPage });
       dispatch({
         type: ActionType.refreshed,
         payload: { items: newItems, page: newPage }
@@ -80,7 +80,6 @@ export function useApi(path: string) {
   return {
     items: state.items,
     status: state.status,
-    refresh,
     loadMore
   };
 }
@@ -146,27 +145,17 @@ function reducer(state: State, action: Action) {
   }
 }
 
-async function load({
-  path,
-  page,
-  bypassCache = false
-}: {
-  path: string;
-  page: number;
-  bypassCache?: boolean;
-}) {
+async function load({ path, page }: { path: string; page: number }) {
   if (abortController) {
     abortController.abort();
   }
   abortController = new AbortController();
 
-  const options: RequestInit = {
-    signal: abortController.signal,
-    cache: bypassCache ? "reload" : "default"
-  };
   const res = await fetch(
     `https://informatif-api.now.sh/api/v1/${path}?page=${page}`,
-    options
+    {
+      signal: abortController.signal
+    }
   );
   return res.json();
 }

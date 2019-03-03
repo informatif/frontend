@@ -1,9 +1,5 @@
 import React, { memo } from "react";
-import {
-  FaRegArrowAltCircleUp,
-  FaRegCommentAlt,
-  FaSyncAlt
-} from "react-icons/fa";
+import { FaRegArrowAltCircleUp, FaRegCommentAlt } from "react-icons/fa";
 import styled from "styled-components/macro";
 import { Status, Item } from "./constants";
 import { useDocumentTitle } from "../hooks/document";
@@ -106,49 +102,31 @@ const ItemSubtitle = styled.span`
   font-size: 0.8rem;
 `;
 
-const Header = memo(
-  ({
-    title,
-    status,
-    handleRefresh
-  }: {
-    title: string;
-    status: Status;
-    handleRefresh: () => void;
-  }) => (
-    <Row>
-      <Container padding={{ left: "8px", right: "8px" }}>
-        <Title>{title}</Title>
-      </Container>
-      {status === Status.refreshing ? (
-        <Spinner />
-      ) : (
-        <Button onClick={handleRefresh} title="Refresh">
-          <FaSyncAlt />
-        </Button>
-      )}
-    </Row>
-  )
-);
+const Header = memo(({ title, status }: { title: string; status: Status }) => (
+  <Row>
+    <Container padding={{ left: "8px", right: "8px" }}>
+      <Title>{title}</Title>
+    </Container>
+    {status === Status.refreshing && <Spinner />}
+  </Row>
+));
 
 export default function Feed({
   status,
   items,
   title,
-  onRefresh,
   onLoadMore
 }: {
   status: Status;
   items: Item[];
   title: string;
-  onRefresh: () => void;
   onLoadMore?: () => void;
 }) {
   useDocumentTitle(title);
 
   return (
     <>
-      <Header title={title} status={status} handleRefresh={onRefresh} />
+      <Header title={title} status={status} />
       <List>
         {items.map(itemProps => (
           <ListItem {...itemProps} key={itemProps.id} />

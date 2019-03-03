@@ -4,14 +4,13 @@ import Feed from "./Feed";
 import { useApi } from "./hooks";
 
 export default function StackOverflowFeed() {
-  const { status, items, refresh, loadMore } = useApi("so");
+  const { status, items, loadMore } = useApi("so");
 
   return (
     <Feed
       title={FEED_ID_TO_TITLE.so}
       status={status}
       items={items}
-      onRefresh={refresh}
       onLoadMore={loadMore}
     />
   );
