@@ -46,7 +46,7 @@
     "@types/styled-components": "4.1.11",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-react-hooks": "1.4.0",
-    "now": "14.0.2",
+    "now": "14.0.3",
     "prettier": "1.16.4",
     "serve": "10.1.2",
     "source-map-explorer": "1.7.0",
