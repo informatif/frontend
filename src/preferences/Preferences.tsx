@@ -13,6 +13,7 @@ import {
 } from "./constants";
 import { useDisplayedFeeds, useLeftHandedMode } from "./hooks";
 import A from "../presentation/A";
+import Center from "../presentation/Center";
 
 const TogglePref = memo(
   ({
@@ -190,10 +191,18 @@ const AboutPref = memo(() => (
   </Container>
 ));
 
+const Header = memo(({ title }: { title: string }) => (
+  <Center>
+    <Container padding={{ left: "8px", right: "8px", top: "8px" }}>
+      <Title size="1.1rem">Informatif - {title}</Title>
+    </Container>
+  </Center>
+));
+
 export default function Preferences() {
   return (
     <Container padding={{ left: "8px" }}>
-      <Title>Preferences</Title>
+      <Header title="Preferences" />
       <NightModePref />
       <LeftHandedModePref />
       <DisplayedFeedsPref />

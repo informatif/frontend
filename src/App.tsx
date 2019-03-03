@@ -7,7 +7,6 @@ import { DEFAULT_NIGHT_MODE } from "./preferences/constants";
 import Center from "./presentation/Center";
 import Container from "./presentation/Container";
 import Spinner from "./presentation/Spinner";
-import Title from "./presentation/Title";
 
 const HackerNewsFeed = lazy(() => import("./feeds/HackerNewsFeed"));
 const GitHubFeed = lazy(() => import("./feeds/GitHubFeed"));
@@ -25,11 +24,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <Container margin={{ bottom: "56px" }}>
-        <Center>
-          <Title colored size="1.5rem">
-            Informatif
-          </Title>
-        </Center>
         <Suspense
           fallback={
             <Center>

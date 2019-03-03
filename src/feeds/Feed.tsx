@@ -102,14 +102,20 @@ const ItemSubtitle = styled.span`
   font-size: 0.8rem;
 `;
 
-const Header = memo(({ title, status }: { title: string; status: Status }) => (
-  <Row>
-    <Container padding={{ left: "8px", right: "8px" }}>
-      <Title>{title}</Title>
-    </Container>
-    {status === Status.refreshing && <Spinner />}
-  </Row>
-));
+const Header = memo(
+  ({ title, refreshing }: { title: string; refreshing: boolean }) => (
+    <Center>
+      <Container padding={{ top: "8px" }}>
+        <Row>
+          <Container padding={{ left: "8px", right: "8px" }}>
+            <Title size="1.1rem">Informatif - {title}</Title>
+          </Container>
+          {refreshing && <Spinner />}
+        </Row>
+      </Container>
+    </Center>
+  )
+);
 
 export default function Feed({
   status,
@@ -126,7 +132,7 @@ export default function Feed({
 
   return (
     <>
-      <Header title={title} status={status} />
+      <Header title={title} refreshing={status === Status.refreshing} />
       <List>
         {items.map(itemProps => (
           <ListItem {...itemProps} key={itemProps.id} />
