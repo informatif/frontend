@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import { Status, Item } from "./constants";
 
 interface State {
@@ -25,9 +25,8 @@ enum ActionType {
 
 const abortErrorName = "AbortError";
 
-let abortController: AbortController | null = null;
-
 export function useApi(path: string) {
+  const abortController = useRef(new AbortController());
   const [state, dispatch] = useReducer(reducer, {
     status: Status.refreshing,
     items: [],
@@ -35,12 +34,23 @@ export function useApi(path: string) {
   });
   const refresh = useCallback(async () => {
     dispatch({ type: ActionType.refresh });
-    const newPage = 1;
+    renewAbortController(abortController);
+    const loads = [];
+    for (let i = 1; i <= state.page; i++) {
+      loads.push(
+        load({
+          path,
+          page: i,
+          signal: abortController.current.signal,
+          bypassCache: true
+        })
+      );
+    }
     try {
-      const newItems = await load({ path, page: newPage, bypassCache: true });
+      const newItems = dedupe(await Promise.all(loads));
       dispatch({
         type: ActionType.refreshed,
-        payload: { items: newItems, page: newPage }
+        payload: { items: newItems, page: state.page }
       });
     } catch (err) {
       if (err.name !== abortErrorName) {
@@ -48,12 +58,17 @@ export function useApi(path: string) {
         console.error(err);
       }
     }
-  }, [dispatch, path]);
+  }, [dispatch, path, state.page, abortController, renewAbortController]);
   const loadMore = useCallback(async () => {
     dispatch({ type: ActionType.loadMore });
+    renewAbortController(abortController);
     const newPage = state.page + 1;
     try {
-      const newItems = await load({ path, page: newPage });
+      const newItems = await load({
+        path,
+        page: newPage,
+        signal: abortController.current.signal
+      });
       dispatch({
         type: ActionType.loadedMore,
         payload: { items: newItems, page: newPage }
@@ -64,18 +79,15 @@ export function useApi(path: string) {
         console.error(err);
       }
     }
-  }, [dispatch, path, state.page]);
+  }, [dispatch, path, state.page, abortController, renewAbortController]);
 
   useEffect(() => {
     refresh();
 
     return () => {
-      if (abortController) {
-        abortController.abort();
-        abortController = null;
-      }
+      renewAbortController(abortController);
     };
-  }, [refresh]);
+  }, [refresh, abortController, renewAbortController]);
 
   return {
     items: state.items,
@@ -117,23 +129,11 @@ function reducer(state: State, action: Action) {
           status: Status.idling
         };
       }
-      // De-duplicate the arrays
-      const reconciledItems = [];
-      const storedIds = new Set();
-      for (let item of state.items) {
-        reconciledItems.push(item);
-        storedIds.add(item.id);
-      }
-      for (let item of action.payload.items) {
-        if (!storedIds.has(item.id)) {
-          // Assume that there cannot be any duplicates within a page
-          reconciledItems.push(item);
-        }
-      }
+      const items = dedupe([state.items, action.payload.items]);
       return {
         ...state,
         status: Status.idling,
-        items: reconciledItems,
+        items,
         page: action.payload.page
       };
     case ActionType.idle:
@@ -149,19 +149,16 @@ function reducer(state: State, action: Action) {
 async function load({
   path,
   page,
+  signal,
   bypassCache = false
 }: {
   path: string;
   page: number;
+  signal: AbortSignal;
   bypassCache?: boolean;
 }) {
-  if (abortController) {
-    abortController.abort();
-  }
-  abortController = new AbortController();
-
   const options: RequestInit = {
-    signal: abortController.signal,
+    signal,
     cache: bypassCache ? "reload" : "default"
   };
   const res = await fetch(
@@ -169,4 +166,29 @@ async function load({
     options
   );
   return res.json();
+}
+
+function dedupe(arrays: Item[][]) {
+  if (arrays.length === 0) return [];
+  if (arrays.length === 1) return arrays[0];
+
+  const deduplicated = [];
+  const storedIds = new Set();
+  for (let arr of arrays) {
+    for (let item of arr) {
+      if (!storedIds.has(item.id)) {
+        // Assume that there cannot be any duplicates within an array
+        deduplicated.push(item);
+        storedIds.add(item.id);
+      }
+    }
+  }
+  return deduplicated;
+}
+
+function renewAbortController(
+  abortController: React.MutableRefObject<AbortController>
+) {
+  abortController.current.abort();
+  abortController.current = new AbortController();
 }
