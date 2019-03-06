@@ -42,7 +42,6 @@ const TogglePref = memo(
               <Title colored>{title}</Title>
               <input
                 type="checkbox"
-                role="switch"
                 id={id}
                 onChange={handleChange}
                 checked={checked}
@@ -72,7 +71,6 @@ const ListPrefItem = memo(
       <label htmlFor={id}>{label}</label>
       <input
         type="checkbox"
-        role="switch"
         id={id}
         onChange={handleChange}
         checked={checked}
