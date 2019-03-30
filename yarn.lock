@@ -895,6 +895,11 @@
     "@svgr/plugin-svgo" "^4.0.3"
     loader-utils "^1.1.0"
 
+"@types/bytes@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/bytes/-/bytes-3.0.0.tgz#549eeacd0a8fecfaa459334583a4edcee738e6db"
+  integrity sha512-ZF43+CIIlzngQe8/Zo7L1kpY9W8O6rO006VDz3c5iM21ddtXWxCEyOXyft+q4pVF2tGqvrVuVrEDH1+gJEi1fQ==
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -6706,10 +6711,12 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
-now@14.2.1:
-  version "14.2.1"
-  resolved "https://registry.yarnpkg.com/now/-/now-14.2.1.tgz#fe55956eed8f3e6751d521247ec1a6702c233bc8"
-  integrity sha512-7YmWexgLbCNzoTUPpNTjfuvnwkCKjWbITJKULtFREn7EZMdUqipMhdYnJGzypPlCMSd+tTNjcK8U7byn67rQfA==
+now@14.2.4:
+  version "14.2.4"
+  resolved "https://registry.yarnpkg.com/now/-/now-14.2.4.tgz#f7768954cf242886bb5c618b9b63b9d8f6c7438b"
+  integrity sha512-HfMwF7iwGvv/pBzu9snIwe9r70G7FaA3BBvgChMey5s0HeSfvOJYCP16WC11/ANyV4OOkGHWPSGlMwYCaPRFww==
+  dependencies:
+    "@types/bytes" "3.0.0"
 
 npm-bundled@^1.0.1:
   version "1.0.6"
