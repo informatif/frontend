@@ -40,7 +40,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/node": "11.12.2",
+    "@types/node": "11.13.4",
     "@types/react": "16.8.12",
     "@types/react-dom": "16.8.3",
     "@types/react-router-dom": "4.3.1",
