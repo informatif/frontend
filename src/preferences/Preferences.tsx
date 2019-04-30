@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from "react";
 import { FaHandHolding, FaInfo, FaMoon, FaTv } from "react-icons/fa";
-import { IconType } from "react-icons/lib/iconBase";
+import { IconType } from "react-icons/lib";
 import useDarkMode from "use-dark-mode";
 import Container from "../presentation/Container";
 import Row from "../presentation/Row";
