@@ -45,10 +45,7 @@
     "@types/react-dom": "16.8.4",
     "@types/react-router-dom": "4.3.2",
     "@types/styled-components": "4.1.14",
-    "eslint-plugin-prettier": "3.0.1",
-    "eslint-plugin-react-hooks": "1.6.0",
     "now": "15.0.11",
-    "prettier": "1.17.0",
     "serve": "11.0.0",
     "source-map-explorer": "1.8.0",
     "typescript": "3.4.5"
