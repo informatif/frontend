@@ -148,22 +148,36 @@ function LeftHandedModePref() {
   );
 }
 
+function useDisplayedFeedItem(id: string, label: string) {
+  const [displayed, setDisplayed] = useDisplayedFeeds[id](
+    DEFAULT_DISPLAYED_FEED
+  );
+  const handleChange = useCallback(
+    () => setDisplayed(prevDisplayed => !prevDisplayed),
+    [setDisplayed]
+  );
+  return {
+    id,
+    label,
+    checked: displayed,
+    handleChange
+  };
+}
 function DisplayedFeedsPref() {
-  const items = Object.keys(FEED_ID_TO_TITLE).map(id => {
-    const [displayed, setDisplayed] = useDisplayedFeeds[id](
-      DEFAULT_DISPLAYED_FEED
-    );
-    const handleChange = useCallback(
-      () => setDisplayed(prevDisplayed => !prevDisplayed),
-      [setDisplayed]
-    );
-    return {
-      id,
-      label: FEED_ID_TO_TITLE[id],
-      checked: displayed,
-      handleChange
-    };
-  });
+  const items: {
+    id: string;
+    label: string;
+    checked: boolean;
+    handleChange: () => void;
+  }[] = [
+    useDisplayedFeedItem("hn", FEED_ID_TO_TITLE.hn),
+    useDisplayedFeedItem("gh", FEED_ID_TO_TITLE.gh),
+    useDisplayedFeedItem("so", FEED_ID_TO_TITLE.so),
+    useDisplayedFeedItem("medium", FEED_ID_TO_TITLE.medium),
+    useDisplayedFeedItem("reddit", FEED_ID_TO_TITLE.reddit),
+    useDisplayedFeedItem("global", FEED_ID_TO_TITLE.global)
+  ];
+
   return <ListPref Icon={FaTv} title="Displayed feeds" items={items} />;
 }
 
