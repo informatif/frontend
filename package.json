@@ -39,7 +39,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/node": "11.13.13",
+    "@types/node": "11.13.14",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
     "@types/react-router-dom": "4.3.3",
