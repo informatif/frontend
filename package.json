@@ -46,6 +46,6 @@
     "@types/styled-components": "4.1.16",
     "serve": "11.0.1",
     "source-map-explorer": "2.0.0",
-    "typescript": "3.5.1"
+    "typescript": "3.5.2"
   }
 }
