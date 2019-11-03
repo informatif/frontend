@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM, { unstable_createRoot } from "react-dom";
+import ReactDOM, { createRoot } from "react-dom";
 import App from "./App";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-unstable_createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(<App />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
