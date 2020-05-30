@@ -152,7 +152,7 @@ async function load({ path, page }: { path: string; page: number }) {
   abortController = new AbortController();
 
   const res = await fetch(
-    `https://informatif-api.now.sh/api/v1/${path}?page=${page}`,
+    `https://zwliew.com/informatif/api/v1/${path}?page=${page}`,
     {
       signal: abortController.signal
     }
