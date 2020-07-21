@@ -27,15 +27,17 @@ const StyledListItem = styled.li`
 const ListItem = memo(
   ({
     link,
+    origLink,
     altLink,
     altLinkName,
     title,
     author,
     description,
     points,
-    responseCount
+    responseCount,
   }: {
     link: string;
+    origLink: string;
     altLink: string;
     altLinkName: string;
     title: string;
@@ -46,11 +48,20 @@ const ListItem = memo(
   }) => (
     <StyledListItem>
       <ItemContent>
-        <Title>
-          <ItemLink href={link} title="Title">
-            {title} {description && `— ${description}`}
-          </ItemLink>
-        </Title>
+        <span>
+          <Title>
+            <ItemLink href={link} title="Title">
+              {title} {description && `— ${description}`}
+            </ItemLink>
+          </Title>{" "}
+          <Title size="0.8rem">
+            {origLink != null && (
+              <ItemLink href={origLink} title="Original link">
+                [{getHostname(origLink)}]
+              </ItemLink>
+            )}
+          </Title>
+        </span>
         <div>
           <ItemSubtitle title="Author">{author}</ItemSubtitle>
           {points != null && (
@@ -82,6 +93,12 @@ const ListItem = memo(
     </StyledListItem>
   )
 );
+
+// Credit: https://stackoverflow.com/a/54947757/3237113
+function getHostname(urlString: string) {
+  const matches = urlString.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
+  return matches && matches[1];
+}
 
 const ItemContent = styled.article`
   display: flex;
@@ -121,7 +138,7 @@ export default function Feed({
   status,
   items,
   title,
-  onLoadMore
+  onLoadMore,
 }: {
   status: Status;
   items: Item[];
@@ -134,7 +151,7 @@ export default function Feed({
     <>
       <Header title={title} refreshing={status === Status.refreshing} />
       <List>
-        {items.map(itemProps => (
+        {items.map((itemProps) => (
           <ListItem {...itemProps} key={itemProps.id} />
         ))}
       </List>

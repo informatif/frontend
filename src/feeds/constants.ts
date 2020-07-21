@@ -6,6 +6,7 @@ export enum Status {
 
 export interface Item {
   link: string;
+  origLink: string;
   altLink: string;
   altLinkName: string;
   title: string;
