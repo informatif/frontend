@@ -10,7 +10,7 @@
   "author": "Zhao Wei Liew <zhaoweiliew@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "react": "0.0.0-experimental-e5d06e34b",
+    "react": "0.14.9",
     "react-a11y": "1.1.0",
     "react-dom": "0.0.0-experimental-e5d06e34b",
     "react-icons": "3.10.0",
