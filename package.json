@@ -44,7 +44,7 @@
     "@types/react-router-dom": "5.1.5",
     "@types/styled-components": "5.1.2",
     "serve": "11.3.2",
-    "source-map-explorer": "2.4.2",
+    "source-map-explorer": "2.5.0",
     "typescript": "3.9.7"
   },
   "babelMacros": {
