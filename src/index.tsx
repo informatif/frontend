@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM, { createRoot } from "react-dom";
+import ReactDOM, { unstable_createRoot } from "react-dom";
 import App from "./App";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -22,12 +22,12 @@ if (process.env.NODE_ENV === "development") {
       "no-onchange": "warn",
       "onclick-uses-role": "warn",
       "tabindex-no-positive": "warn",
-      "tabindex-uses-button": "warn"
-    }
+      "tabindex-uses-button": "warn",
+    },
   });
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+unstable_createRoot(document.getElementById("root")).render(<App />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
