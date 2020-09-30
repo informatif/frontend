@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "0.0.0-experimental-94c0244ba",
     "react-a11y": "1.1.0",
-    "react-dom": "0.0.0-experimental-94c0244ba",
+    "react-dom": "0.14.1",
     "react-icons": "3.11.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.3",
