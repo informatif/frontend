@@ -3,7 +3,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import useDarkMode from "use-dark-mode";
 import ErrorBoundary from "./ErrorBoundary";
 import Footer from "./footer/Footer";
-import { DEFAULT_NIGHT_MODE } from "./preferences/constants";
 import Center from "./presentation/Center";
 import Container from "./presentation/Container";
 import Spinner from "./presentation/Spinner";
@@ -18,8 +17,7 @@ const Preferences = lazy(() => import("./preferences/Preferences"));
 const NotFound = lazy(() => import("./NotFound"));
 
 export default function App() {
-  // TODO: Query dark mode directly in components that use it
-  useDarkMode(DEFAULT_NIGHT_MODE);
+  useDarkMode();
 
   return (
     <BrowserRouter>

@@ -8,8 +8,7 @@ import Title from "../presentation/Title";
 import {
   DEFAULT_DISPLAYED_FEED,
   DEFAULT_LEFT_HANDED_MODE,
-  DEFAULT_NIGHT_MODE,
-  FEED_ID_TO_TITLE
+  FEED_ID_TO_TITLE,
 } from "./constants";
 import { useDisplayedFeeds, useLeftHandedMode } from "./hooks";
 import A from "../presentation/A";
@@ -22,7 +21,7 @@ const TogglePref = memo(
     title,
     description,
     handleChange,
-    checked
+    checked,
   }: {
     id: string;
     Icon: IconType;
@@ -60,7 +59,7 @@ const ListPrefItem = memo(
     id,
     label,
     checked,
-    handleChange
+    handleChange,
   }: {
     id: string;
     label: string;
@@ -82,7 +81,7 @@ const ListPrefItem = memo(
 const ListPref = ({
   Icon,
   title,
-  items
+  items,
 }: {
   Icon: IconType;
   title: string;
@@ -117,7 +116,7 @@ const ListPref = ({
 );
 
 function NightModePref() {
-  const { value, toggle } = useDarkMode(DEFAULT_NIGHT_MODE);
+  const { value, toggle } = useDarkMode();
   return (
     <TogglePref
       id="night-mode"
@@ -133,7 +132,7 @@ function NightModePref() {
 function LeftHandedModePref() {
   const [enabled, setEnabled] = useLeftHandedMode(DEFAULT_LEFT_HANDED_MODE);
   const handleChange = useCallback(
-    () => setEnabled(prevEnabled => !prevEnabled),
+    () => setEnabled((prevEnabled) => !prevEnabled),
     [setEnabled]
   );
   return (
@@ -153,16 +152,17 @@ function useDisplayedFeedItem(id: string, label: string) {
     DEFAULT_DISPLAYED_FEED
   );
   const handleChange = useCallback(
-    () => setDisplayed(prevDisplayed => !prevDisplayed),
+    () => setDisplayed((prevDisplayed) => !prevDisplayed),
     [setDisplayed]
   );
   return {
     id,
     label,
     checked: displayed,
-    handleChange
+    handleChange,
   };
 }
+
 function DisplayedFeedsPref() {
   const items: {
     id: string;
@@ -175,7 +175,7 @@ function DisplayedFeedsPref() {
     useDisplayedFeedItem("so", FEED_ID_TO_TITLE.so),
     useDisplayedFeedItem("medium", FEED_ID_TO_TITLE.medium),
     useDisplayedFeedItem("reddit", FEED_ID_TO_TITLE.reddit),
-    useDisplayedFeedItem("global", FEED_ID_TO_TITLE.global)
+    useDisplayedFeedItem("global", FEED_ID_TO_TITLE.global),
   ];
 
   return <ListPref Icon={FaTv} title="Displayed feeds" items={items} />;
